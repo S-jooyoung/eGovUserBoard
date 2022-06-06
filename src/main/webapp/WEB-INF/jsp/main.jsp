@@ -30,9 +30,6 @@
       rel="stylesheet"
     />
 
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href=resources/vendor/fonts/boxicons.css" />
-
     <!-- Core CSS -->
     <link rel="stylesheet" href="resources/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="resources/vendor/css/theme-default.css" class="template-customizer-theme-css" />
@@ -49,6 +46,57 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="resources/js/config.js"></script>
+    
+    <script type="text/javascript">
+    
+    function searchBtn(){
+    	
+    	var params = $("#searchForm").serialize();
+    	
+    	console.log(params);
+    	
+        $.ajax({
+           url:'/eGovBoard/api/employee/list', // 목적지
+           dataType:'json', // 전송 데이터 형식
+           data: params, //전송 데이터
+           contentType:"application/json; charset=UTF-8",
+           type:'GET',
+           success:function(result)
+           {
+        	   alert("성공");
+        	   
+               var res=""; 
+               
+               for(let i=0;i<result.length;i++){            	   	
+                     res+="<tr class='List' onclick='listBtn("+result[i].idx+")'>"
+                     +"<td>"+ result[i].idx +"</td>"
+                     +"<td>" + result[i].job + "</td>"
+                     +"<td>" + result[i].employee_no + "</td>"
+                     +"<td>" + result[i].name + "</td>"
+                     +"<td>" + result[i].position + "</td>"
+                     +"<td>" + result[i].phone_no+ "</td>"
+                     +"<td>" + result[i].state + "</td>"
+                     +"<td>" + result[i].address+ "</td>"
+                     +"</tr>"; 
+               }
+               $("#userList").empty();
+               $("#userList").append(res);
+           },
+          error: function(data){
+             alert("실패입니다.");
+          }
+        });
+      }
+    
+     function listBtn(data){
+    	 console.log(data);
+     }
+    
+    </script>
+    
+    <style type="text/css">
+    .List:hover{ color: red}
+    </style>
   </head>
 
   <body>
@@ -92,12 +140,12 @@
                   <h5 class="mb-0">검색조건</h5>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form id="searchForm">
                     <div style="display: flex;">
                       <div class="mb-3 w-25 px-2">
                         <div class="input-group">
-                          <span class="input-group-text" id="inputGroupSelect01">부서</span>
-                          <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                          <span class="input-group-text"  id="inputGroupSelect01">부서</span>
+                          <select class="form-select" id="group" name="group" aria-label="Default select example">
                             <option selected>선택하세요</option>
                             <option value="1">HR</option>
                             <option value="2">R&D</option>
@@ -109,7 +157,7 @@
                       <div class="mb-3 w-25 px-2">
                         <div class="input-group">
                           <span class="input-group-text" id="inputGroupSelect01">직급</span>
-                          <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                          <select class="form-select" id="rank" name="rank" aria-label="Default select example">
                             <option selected>선택하세요</option>
                             <option value="1">사원</option>
                             <option value="2">대리</option>
@@ -121,23 +169,28 @@
                       <div class="mb-3 w-25 px-2">
                         <div class="input-group">
                           <span class="input-group-text" id="inputGroupSelect01">이름</span>
-                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="신주영" />
+                          <input type="text" class="form-control" id="name" name="name" placeholder="입력하세요" />
                         </div>
                       </div>
                       <div class="mb-3 w-25 px-2">
                         <div class="input-group">
                           <span class="input-group-text" id="inputGroupSelect01">주소</span>
-                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="" />
+                          <input type="text" class="form-control" id="address" name="address" placeholder="입력하세요" />
                         </div>
                       </div>
                     </div>
+                    
                     <div style="display: flex; justify-content: flex-end;">
-                      <button type="submit" class="btn btn-primary me-2">검색</button>
+                      <input type="button" onclick="searchBtn()" class="btn btn-primary me-2" value="검색"/>
                     </div>
                   </form>
+                    <!-- <div style="display: flex; justify-content: flex-end;">
+                      <button onclick="searchBtn()" class="btn btn-primary me-2">검색</button>
+                    </div> -->
                 </div>
               </div>
               <!--/  Select -->
+              
 
               <!--  List Table -->
               <div class="card">
@@ -157,17 +210,8 @@
                           <th>주소</th>
                         </tr>
                       </thead>
-                      <tbody class="table-border-bottom-0">
-                        <tr>
-                          <td>1</td>
-                          <td>개발사업본부</td>
-                          <td>Htec-709</td>
-                          <td>신주영</td>
-                          <td>사원</td>
-                          <td>010-2339-7370</td>
-                          <td>근무</td>
-                          <td>대구시 동구</td>
-                        </tr>
+                      <tbody class="userList" id="userList">
+                        
                       </tbody>
                     </table>
                   </div>

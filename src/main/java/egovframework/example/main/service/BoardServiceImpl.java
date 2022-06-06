@@ -19,20 +19,20 @@ public class BoardServiceImpl implements BoardService{
 	
 	private final static String absolutePath = new File("").getAbsolutePath() + "\\";
 	
-	private final static Path path = Path.of(absolutePath + "/temp");
-	
-	@PostConstruct
-	public void initIt() {
-		System.out.println("Init method after properties are set : " + path);
-	  try {
-		  if(!Files.exists(path)) {
-              Files.createDirectories(path);
-              System.out.println("Create Init Temp Folder");
-		  }
-	  } catch (IOException e) {
-		  e.printStackTrace();
-	  }
-	}
+//	private final static Path path = Path.of(absolutePath + "/temp");
+//	
+//	@PostConstruct
+//	public void initIt() {
+//		System.out.println("Init method after properties are set : " + path);
+//	  try {
+//		  if(!Files.exists(path)) {
+//              Files.createDirectories(path);
+//              System.out.println("Create Init Temp Folder");
+//		  }
+//	  } catch (IOException e) {
+//		  e.printStackTrace();
+//	  }
+//	}
 
 	@Resource(name="boardDAO")
     private BoardDAO boardDAO;
