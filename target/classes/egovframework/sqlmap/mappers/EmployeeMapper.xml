@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.main.dao.EmployeeDAO">
+
+	<select id="getEmployeeList" resultType="map" parameterType="map">
+		SELECT *
+		FROM employee
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="name != null AND name != ''">AND name = #{name}</if>
+			<if test="work_dept != null AND work_dept != ''">AND work_dept = #{workDept}</if>
+			<if test="position != null AND position != ''">AND position = #{position}</if>
+		</trim>
+	</select>
+	
+	<select id="getEmployeeDetail" resultType="map" parameterType="long">
+		SELECT *
+		FROM employee
+		WHERE idx = #{empIdx}
+	</select>
+	
+	<insert id="registEmployee" parameterType="java.util.Map">
+		INSERT INTO employee (name, employee_no, work_dept, position, address, state, phone_no, sex, area, job, email, picture, home_no, office_no, hire_date, birth_date)
+		VALUES (
+				#{name, jdbcType=VARCHAR}, 
+				#{employeeNo, jdbcType=VARCHAR}, 
+				#{workDept, jdbcType=VARCHAR}, 
+				#{position, jdbcType=VARCHAR}, 
+				#{address, jdbcType=VARCHAR}, 
+				#{state, jdbcType=VARCHAR}, 
+				#{phoneNo, jdbcType=VARCHAR}, 
+				#{sex, jdbcType=VARCHAR},
+				#{area, jdbcType=VARCHAR}, 
+				#{job, jdbcType=VARCHAR}, 
+				#{email, jdbcType=VARCHAR}, 
+				#{picture, jdbcType=VARCHAR}, 
+				#{homeNo, jdbcType=VARCHAR}, 
+				#{officeNo, jdbcType=VARCHAR}, 
+				#{hireDate, jdbcType=TIMESTAMP}, 
+				#{birthDate, jdbcType=TIMESTAMP}
+				)
+	</insert>
+	
+	<update id="modifyEmployee" parameterType="java.util.Map">
+	UPDATE employee
+	<trim prefix="SET" suffixOverrides=",">
+		<if test="name != null AND name != ''">name = #{name, jdbcType=VARCHAR},</if>
+		<if test="employeeNo != null AND employeeNo != ''">employee_no = #{employeeNo, jdbcType=VARCHAR},</if>
+		<if test="workDept != null AND workDept != ''">work_dept = #{workDept, jdbcType=VARCHAR},</if>
+		<if test="position != null AND position != ''">position = #{position, jdbcType=VARCHAR},</if>
+		<if test="address != null AND address != ''">address = #{address, jdbcType=VARCHAR},</if>
+		<if test="state != null AND state != ''">state = #{state, jdbcType=VARCHAR},</if>
+		<if test="phoneNo != null AND phoneNo != ''">phone_no = #{phoneNo, jdbcType=VARCHAR},</if>
+		<if test="sex != null AND sex != ''">sex = #{sex, jdbcType=VARCHAR},</if>
+		<if test="area != null AND area != ''">area = #{area, jdbcType=VARCHAR},</if>
+		<if test="job != null AND job != ''">job = #{job, jdbcType=VARCHAR},</if>
+		<if test="email != null AND email != ''">email = #{email, jdbcType=VARCHAR},</if>
+		<if test="picture != null AND picture != ''">picture = #{picture, jdbcType=VARCHAR},</if>
+		<if test="homeNo != null AND homeNo != ''">home_no = #{homeNo, jdbcType=VARCHAR},</if>
+		<if test="officeNo != null AND officeNo != ''">office_no = #{officeNo, jdbcType=VARCHAR},</if>
+		<if test="hireDate != null AND hireDate != ''">hire_date = #{hireDate, jdbcType=TIMESTAMP},</if>
+	</trim>
+	WHERE idx = #{empIdx}
+	</update>
+	 
+	 <!-- 
+	<update id="modifyEmployee" parameterType="java.util.Map">
+	UPDATE member1
+	SET
+		name = NVL(#{name}, name),
+		employee_no = NVL(#{employeeNo}, employee_no),
+		sex = NVL(#{sex}, sex),
+		work_dept = NVL(#{workDept}, work_dept),
+		position = NVL(#{position}, position),
+		area = NVL(#{area}, area),
+		job = NVL(#{job}, job),
+		address = NVL(#{address}, address),
+		email = NVL(#{email}, email),
+		picture = NVL(#{picture}, picture),
+		phone_no = NVL(#{phoneNo}, phone_no),
+		home_no = NVL(#{homeNo}, home_no),
+		office_no = NVL(#{officeNo}, office_no),
+		hire_date = NVL(#{hireDate}, hire_date),
+		birth_date = NVL(#{birthDate}, birth_date)
+	WHERE idx = #{empIdx}
+	</update>
+	 -->
+</mapper>

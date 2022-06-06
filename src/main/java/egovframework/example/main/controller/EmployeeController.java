@@ -4,9 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class mainController {
+public class EmployeeController {
 	
-	@RequestMapping("/main")
+	@RequestMapping("/main.do")
 	public String showIndexPage() {
 		return "/main";
 	}

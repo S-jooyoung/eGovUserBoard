@@ -13,7 +13,7 @@
 	    <url-pattern>*.json</url-pattern>
     </servlet-mapping> -->
     
-	<!-- <filter>
+	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
@@ -33,7 +33,7 @@
 	<filter-mapping>
 		<filter-name>HTMLTagFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
     
 	<context-param>
 		<param-name>contextConfigLocation</param-name>

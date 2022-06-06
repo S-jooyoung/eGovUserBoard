@@ -49,6 +49,29 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="resources/js/config.js"></script>
+    <script type="text/javascript">
+    
+	  	function searchBtn(){
+	    	$.ajax({
+	    		url:'/eGovBoard/employee/list',
+	    		data : {
+	    			"name" : "서영준"
+	    		},
+	    		dataType:'json',
+	    		contentType:"application/json; charset=UTF-8",
+	    		type:'GET',
+	    		success: function(data){
+	    			alert("성공입니다");
+	    			console.log(data);
+	    		},
+	    	  	error: function(data){
+	    	  		alert("실패입니다.");
+	    	  	}
+	    	});
+	  	}
+    
+    </script>
+    
   </head>
 
   <body>
@@ -131,10 +154,10 @@
                         </div>
                       </div>
                     </div>
-                    <div style="display: flex; justify-content: flex-end;">
-                      <button type="submit" class="btn btn-primary me-2">검색</button>
-                    </div>
                   </form>
+                  <div style="display: flex; justify-content: flex-end;">
+                      <button onclick="searchBtn()" class="btn btn-primary me-2">검색</button>
+                    </div>
                 </div>
               </div>
               <!--/  Select -->
