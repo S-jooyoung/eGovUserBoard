@@ -32,14 +32,15 @@ public class RestEmployeeController {
 	@GetMapping("/employee/list")
 
 	public List<HashMap> getEmployeeList(@RequestParam(required = false) HashMap<String, Object> param) {
+		System.out.println("employeeListController");
 		List<HashMap> list = employeeService.getEmployeeList(param);
 
-		
 		return list;
 	}
 	
 	@GetMapping("/employee/detail/{empIdx}")
 	public HashMap<String, Object> getEmployeeDetail(@PathVariable Long empIdx) {
+		System.out.println("employeeDetailController");
 		HashMap<String, Object> detail = employeeService.getEmployeeDetail(empIdx);
 		
 		return detail;
@@ -47,6 +48,7 @@ public class RestEmployeeController {
 	
 	@PostMapping("/employee")
 	public void registEmployee(@RequestParam(name = "file", required = false) MultipartFile file, @RequestParam(required = false) HashMap<String, Object> param) throws IOException {
+		System.out.println("employeeRegistController");
 		Object picture = null;
 		
 		if(file != null) {
@@ -59,6 +61,7 @@ public class RestEmployeeController {
 	
 	@PutMapping("/employee/modify/{empIdx}")
 	public void modifyEmployee(@PathVariable Long empIdx, @RequestBody HashMap<String, Object> param) {
+		System.out.println("employeeModifyController");
 		param.put("empIdx", empIdx);
 		employeeService.modifyEmployee(param);
 	}

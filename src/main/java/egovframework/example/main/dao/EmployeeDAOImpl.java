@@ -16,24 +16,28 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	
 	@Override
 	public List<HashMap> getEmployeeList(HashMap<String, Object> map) {
+		System.out.println("employeeListMapper");
 		// TODO Auto-generated method stub
 		return query.selectList("getEmployeeList", map);
 	}
 
 	@Override
 	public void registEmployee(HashMap<String, Object> map) {
+		System.out.println("employeeRegistMapper");
 		// TODO Auto-generated method stub
 		query.insert("registEmployee", map);
 	}
 
 	@Override
 	public void modifyEmployee(HashMap<String, Object> map) {
+		System.out.println("employeeModifyMapper");
 		// TODO Auto-generated method stub
 		query.update("modifyEmployee", map);
 	}
 
 	@Override
 	public HashMap<String, Object> getEmployeeDetail(Long empIdx) {
+		System.out.println("employeeDetailMapper");
 		// TODO Auto-generated method stub
 		return query.selectOne("getEmployeeDetail", empIdx);
 	}

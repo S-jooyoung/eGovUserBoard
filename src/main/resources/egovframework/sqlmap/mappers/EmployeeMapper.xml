@@ -6,9 +6,9 @@
 		SELECT *
 		FROM employee
 		<trim prefix="WHERE" prefixOverrides="AND">
-			<if test="name != null AND name != ''">AND name = #{name}</if>
-			<if test="work_dept != null AND work_dept != ''">AND work_dept = #{workDept}</if>
-			<if test="position != null AND position != ''">AND position = #{position}</if>
+			<if test="name != null">AND name = #{name}</if>
+			<if test="work_dept != null">AND work_dept = #{workDept}</if>
+			<if test="position != null">AND position = #{position}</if>
 		</trim>
 	</select>
 	
@@ -43,21 +43,21 @@
 	<update id="modifyEmployee" parameterType="java.util.Map">
 	UPDATE employee
 	<trim prefix="SET" suffixOverrides=",">
-		<if test="name != null AND name != ''">name = #{name, jdbcType=VARCHAR},</if>
-		<if test="employeeNo != null AND employeeNo != ''">employee_no = #{employeeNo, jdbcType=VARCHAR},</if>
-		<if test="workDept != null AND workDept != ''">work_dept = #{workDept, jdbcType=VARCHAR},</if>
-		<if test="position != null AND position != ''">position = #{position, jdbcType=VARCHAR},</if>
-		<if test="address != null AND address != ''">address = #{address, jdbcType=VARCHAR},</if>
-		<if test="state != null AND state != ''">state = #{state, jdbcType=VARCHAR},</if>
-		<if test="phoneNo != null AND phoneNo != ''">phone_no = #{phoneNo, jdbcType=VARCHAR},</if>
-		<if test="sex != null AND sex != ''">sex = #{sex, jdbcType=VARCHAR},</if>
-		<if test="area != null AND area != ''">area = #{area, jdbcType=VARCHAR},</if>
-		<if test="job != null AND job != ''">job = #{job, jdbcType=VARCHAR},</if>
-		<if test="email != null AND email != ''">email = #{email, jdbcType=VARCHAR},</if>
-		<if test="picture != null AND picture != ''">picture = #{picture, jdbcType=VARCHAR},</if>
-		<if test="homeNo != null AND homeNo != ''">home_no = #{homeNo, jdbcType=VARCHAR},</if>
-		<if test="officeNo != null AND officeNo != ''">office_no = #{officeNo, jdbcType=VARCHAR},</if>
-		<if test="hireDate != null AND hireDate != ''">hire_date = #{hireDate, jdbcType=TIMESTAMP},</if>
+		<if test="name != null">name = #{name, jdbcType=VARCHAR},</if>
+		<if test="employeeNo != null">employee_no = #{employeeNo, jdbcType=VARCHAR},</if>
+		<if test="workDept != null">work_dept = #{workDept, jdbcType=VARCHAR},</if>
+		<if test="position != null">position = #{position, jdbcType=VARCHAR},</if>
+		<if test="address != null">address = #{address, jdbcType=VARCHAR},</if>
+		<if test="state != null">state = #{state, jdbcType=VARCHAR},</if>
+		<if test="phoneNo != null">phone_no = #{phoneNo, jdbcType=VARCHAR},</if>
+		<if test="sex != null">sex = #{sex, jdbcType=VARCHAR},</if>
+		<if test="area != null">area = #{area, jdbcType=VARCHAR},</if>
+		<if test="job != null">job = #{job, jdbcType=VARCHAR},</if>
+		<if test="email != null">email = #{email, jdbcType=VARCHAR},</if>
+		<if test="picture != null">picture = #{picture, jdbcType=VARCHAR},</if>
+		<if test="homeNo != null">home_no = #{homeNo, jdbcType=VARCHAR},</if>
+		<if test="officeNo != null">office_no = #{officeNo, jdbcType=VARCHAR},</if>
+		<if test="hireDate != null">hire_date = #{hireDate, jdbcType=TIMESTAMP},</if>
 	</trim>
 	WHERE idx = #{empIdx}
 	</update>

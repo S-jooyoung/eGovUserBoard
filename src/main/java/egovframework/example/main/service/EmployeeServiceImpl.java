@@ -17,24 +17,28 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public List<HashMap> getEmployeeList(HashMap<String, Object> map) {
+		System.out.println("employeeListService");
 		// TODO Auto-generated method stub
 		return employeeDAO.getEmployeeList(map);
 	}
 
 	@Override
 	public void registEmployee(HashMap<String, Object> map) {
+		System.out.println("employeeRegistService");
 		// TODO Auto-generated method stub
 		employeeDAO.registEmployee(map);
 	}
 
 	@Override
 	public void modifyEmployee(HashMap<String, Object> map) {
+		System.out.println("employeeModifyService");
 		// TODO Auto-generated method stub
 		employeeDAO.modifyEmployee(map);
 	}
 
 	@Override
 	public HashMap<String, Object> getEmployeeDetail(Long empIdx) {
+		System.out.println("employeeDetailService");
 		// TODO Auto-generated method stub
 		return employeeDAO.getEmployeeDetail(empIdx);
 	}
