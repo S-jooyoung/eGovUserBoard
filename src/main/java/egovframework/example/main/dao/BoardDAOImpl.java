@@ -14,9 +14,9 @@ public class BoardDAOImpl implements BoardDAO {
 	private SqlSessionTemplate query;
 	
 	@Override
-	public List<Map> getEmployeeList() {
+	public List<Map> getEmployeeList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return query.selectList("getEmployeeList");
+		return query.selectList("getEmployeeList", map);
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class RestEmployeeController {
 	
 	@GetMapping("/employee/list")
 	public List<Map> getEmployeeList(@RequestBody(required = false) Map<String, Object> param) {
-		List<Map> list = boardService.getEmployeeList();
+		List<Map> list = boardService.getEmployeeList(param);
 		
 		return list;
 	}

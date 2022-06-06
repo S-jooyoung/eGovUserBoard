@@ -8,7 +8,7 @@ import egovframework.rte.psl.dataaccess.mapper.Mapper;
 @Mapper("boardMapper")
 public interface BoardDAO {
 	
-	List<Map> getEmployeeList();
+	List<Map> getEmployeeList(Map<String, Object> map);
 	
 	void registEmployee(Map<String, Object> map);
 	

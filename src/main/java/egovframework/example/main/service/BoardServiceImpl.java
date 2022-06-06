@@ -16,9 +16,9 @@ public class BoardServiceImpl implements BoardService{
     private BoardDAO boardDAO;
 
 	@Override
-	public List<Map> getEmployeeList() {
+	public List<Map> getEmployeeList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return boardDAO.getEmployeeList();
+		return boardDAO.getEmployeeList(map);
 	}
 
 	@Override

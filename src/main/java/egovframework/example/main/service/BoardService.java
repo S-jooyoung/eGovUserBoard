@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface BoardService {
 
-	List<Map> getEmployeeList();
+	List<Map> getEmployeeList(Map<String, Object> map);
 	
 	void registEmployee(Map<String, Object> map);
 	
