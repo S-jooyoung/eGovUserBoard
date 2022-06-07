@@ -54,8 +54,7 @@
     	
     	var params = $("#searchForm").serialize();
     	
-    	console.log(params);
-    	
+
         $.ajax({
            url:'/eGovBoard/employee/list', // 목적지
            dataType:'json', // 전송 데이터 형식
@@ -89,8 +88,36 @@
         });
       }
     
+
      function listBtn(data){
-    	 console.log(data);
+    	  
+    	 $.ajax({
+             url:'/eGovBoard//employee/detail/' + data, // 목적지
+             dataType:'json', // 전송 데이터 형식
+             contentType:"application/x-www-form-urlencoded; charset=UTF-8;",
+             type:'GET',
+             success:function(result)
+             {
+              
+          	    $('input[name=empNm]').attr('value',result.name);
+       		  	$('input[name=empNo]').attr('value',result.employee_no);
+	          	$('input[name=sexCd]').attr('value',result.sex);
+	          	$('input[name=entercoDate]').attr('value',result.hire_date);
+	          	$('input[name=deptNm]').attr('value',result.work_dept);
+	          	$('input[name=rnkCd]').attr('value',result.position);
+	          	$('input[name=birthDate]').attr('value',result.birth_date);
+	          	$('input[name=appoAreaCd]').attr('value',result.area);
+	          	$('input[name=devDutyCd]').attr('value',result.work_dept);
+	          	$('input[name=cell]').attr('value',result.phone_no);
+	          	$('input[name=officePhone]').attr('value',result.office_no);
+	          	$('input[name=housePhone]').attr('value',result.home_no);
+	          	$('input[name=eMailNm]').attr('value',result.address);
+               
+             },
+            error: function(data){
+               alert("실패입니다.");
+            }
+          });
      }
     
     </script>
@@ -231,7 +258,7 @@
                 <div class="card-header" style="display: flex; justify-content: space-between;";>
                     <h5>직원 상세정보</h5>
                     <div ">
-                      <button type="submit" class="btn btn-secondary ">초기화</button>
+                      <button type="submit" class="btn btn-secondary onclick="createInfo()" ">초기화</button>
                       <button type="submit" class="btn btn-primary ">등록</button>
                       <button type="submit" class="btn btn-primary ">수정</button>
                       <button type="submit" class="btn btn-danger ">삭제</button>
@@ -260,48 +287,43 @@
                             <input type="hidden" id="picFileNm" name="picFileNm">
                           </td>
                           <th class="bg-primary text-white"><label for="empNm">이름</label></th>
-                          <td><div id="empNm"></div></td>
+                          <td><input type="text" name="empNm" size="20" style="width:100%; border: 0;"></td>
                           <th class="bg-primary text-white"><label for="empNo">사원번호</label></th>
-                          <td><div id="empNo"></div></td>
+                           <td><input type="text" name="empNo" size="20" style="width:100%; border: 0;"></td>
                           <th class="bg-primary text-white"><label for="sexCd">성별</label></th>
-                          <td><div id="sexCd"></div></td>
+                           <td><input type="text" name="sexCd" size="20" style="width:100%; border: 0;"></td>
                           <th class="bg-primary text-white"><label for="entercoDate">입사일</label></th>
-                          <td><div id="entercoDate"></div></td>
+                          <td><input type="text" name="entercoDate" size="20" style="width:100%; border: 0;"></td>
+                          
                         </tr>
                     
                          <tr>
                         <th class="bg-primary text-white"><label for="deptNm">부서</label></th>
-                        <td><div id="deptNm"></div></td> 
+                        <td><input type="text" name="deptNm" size="20" style="width:100%; border: 0;"></td> 
                         <th class="bg-primary text-white"><label for="rnkCd">직급</label></th>
-                        <td>
-                          <div id="rnkCd"></div>
-                        </td>  
+                        <td><input type="text" name="rnkCd" size="20" style="width:100%; border: 0;"></td> 
                         <th class="bg-primary text-white"><label for="birthDate">생년월일</label></th>
-                        <td>
-                          <div id="birthDate"></div>
-                        </td>
+                        <td><input type="text" name="birthDate" size="20" style="width:100%; border: 0;"></td>
                         <th class="bg-primary text-white"><label for="appoAreaCd">발령기준지</label></th>
-                        <td><div id="appoAreaCd"></div>
-                        </td>
+                        <td><input type="text" name="appoAreaCd" size="20" style="width:100%; border: 0;"></td>
                     </tr>
                    
                     <tr>
                         <th class="bg-primary text-white"><label for="devDutyCd">직무</label></th>
-                        <td><div id="devDutyCd"></div>
-                        </td>
+                        <td><input type="text" name="devDutyCd" size="20" style="width:100%; border: 0;"></td>
                         <th class="bg-primary text-white"><label for="cell">휴대전화</label></th>
-                        <td><div id="cell"></div></td>
+                        <td><input type="text" name="cell" size="20" style="width:100%; border: 0;"></td>
                         <th class="bg-primary text-white"><label for="officePhone">사무실전화</label></th>
-                        <td><div id="officePhone"></div></td> 
+                        <td><input type="text" name="officePhone" size="20" style="width:100%; border: 0;"></td>
                         <th class="bg-primary text-white"><label for="housePhone">집전화</label></th>
-                        <td><div id="housePhone"></div></td> 
+                        <td><input type="text" name="housePhone" size="20" style="width:100%; border: 0;"></td>
                     </tr>
                    
                    <tr>
                         <th class="bg-primary text-white"><label for="eMailNm">이메일</label></th>
-                        <td colspan="3"><div id="eMailNm"></div></td>
+                        <td><input type="text" name="eMailNm" size="20" style="width:100%; border: 0;"></td>
                         <th class="bg-primary text-white"><label for="AdrNm">주소</label></th>
-                        <td colspan="4"><div id="AdrNm"></div></td>  
+                        <td><input type="text" name="AdrNm" size="20" style="width:100%; border: 0;"></td> 
                     </tr>       
                 </tbody>
                     </table>
