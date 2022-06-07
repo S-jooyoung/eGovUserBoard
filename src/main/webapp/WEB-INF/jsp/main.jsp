@@ -57,7 +57,7 @@
     	console.log(params);
     	
         $.ajax({
-           url:'/eGovBoard/api/employee/list', // 목적지
+           url:'/eGovBoard/employee/list', // 목적지
            dataType:'json', // 전송 데이터 형식
            data: params, //전송 데이터
            contentType:"application/json; charset=UTF-8",
@@ -147,24 +147,24 @@
                       <div class="mb-3 w-25 px-2">
                         <div class="input-group">
                           <span class="input-group-text"  id="inputGroupSelect01">부서</span>
-                          <select class="form-select" id="group" name="group" aria-label="Default select example">
-                            <option selected>선택하세요</option>
-                            <option value="1">HR</option>
-                            <option value="2">R&D</option>
-                            <option value="3">WEB</option>
-                            <option value="3">CS</option>
+                          <select class="form-select" id="work_dept" name="work_dept" aria-label="Default select example">
+                            <option value="" selected>선택하세요</option>
+                            <option value="HR">HR</option>
+                            <option value="R&D">R&D</option>
+                            <option value="WEB">WEB</option>
+                            <option value="CS">CS</option>
                           </select>
                         </div>
                       </div>
                       <div class="mb-3 w-25 px-2">
                         <div class="input-group">
                           <span class="input-group-text" id="inputGroupSelect01">직급</span>
-                          <select class="form-select" id="rank" name="rank" aria-label="Default select example">
-                            <option selected>선택하세요</option>
-                            <option value="1">사원</option>
-                            <option value="2">대리</option>
-                            <option value="3">차장</option>
-                            <option value="3">부장</option>
+                          <select class="form-select" id="position" name="position" aria-label="Default select example">
+                            <option value="" selected>선택하세요</option>
+                            <option value="사원">사원</option>
+                            <option value="대리">대리</option>
+                            <option value="차장">차장</option>
+                            <option value="부장">부장</option>
                           </select>
                         </div>
                       </div>
