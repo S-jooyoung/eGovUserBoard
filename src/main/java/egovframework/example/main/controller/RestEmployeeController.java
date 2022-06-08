@@ -45,7 +45,7 @@ public class RestEmployeeController {
 		return detail;
 	}
 	
-	@PostMapping("/employee")
+	@PostMapping("/employee/regist")
 	public void registEmployee(@RequestParam(name = "file", required = false) MultipartFile file, @RequestParam(required = false) HashMap<String, Object> param) throws IOException {
 		System.out.println("employeeRegistController");
 		Object picture = null;
@@ -58,8 +58,8 @@ public class RestEmployeeController {
 		employeeService.registEmployee(param);
 	}
 	
-	@PutMapping("/employee/modify/{empIdx}")
-	public void modifyEmployee(@PathVariable Long empIdx, @RequestBody HashMap<String, Object> param) {
+	@PutMapping("/employee/modify/{empNo}")
+	public void modifyEmployee(@PathVariable Long empIdx, @RequestParam HashMap<String, Object> param) {
 		System.out.println("employeeModifyController");
 		param.put("empIdx", empIdx);
 		employeeService.modifyEmployee(param);
