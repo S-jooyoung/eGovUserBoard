@@ -1,18 +1,16 @@
 package egovframework.example.main.controller;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,14 +44,14 @@ public class RestEmployeeController {
 	}
 	
 	@PostMapping("/employee/regist")
-	public void registEmployee(@RequestParam(name = "file", required = false) MultipartFile file, @RequestParam(required = false) HashMap<String, Object> param) throws IOException {
+	public void registEmployee(@RequestParam(name = "profile_pt", required = false) MultipartFile file, @RequestParam(required = false) HashMap<String, Object> param) throws Exception {
 		System.out.println("employeeRegistController");
 		Object picture = null;
 		
 		if(file != null) {
 			System.out.println("fileRegistController");
 			picture = fileService.registFile(fileService.uploadForm(file));
-			param.put("picture", picture);
+			param.put("picture_r", picture);
 		}
 		
 		employeeService.registEmployee(param);
@@ -73,6 +71,4 @@ public class RestEmployeeController {
 		System.out.println("employeeModifyController");
 		employeeService.modifyEmployee(param);
 	}
-	
-	
 }

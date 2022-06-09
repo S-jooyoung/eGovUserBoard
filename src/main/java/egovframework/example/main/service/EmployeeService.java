@@ -7,7 +7,7 @@ public interface EmployeeService {
 
 	List<HashMap> getEmployeeList(HashMap<String, Object> map);
 	
-	void registEmployee(HashMap<String, Object> map);
+	void registEmployee(HashMap<String, Object> map) throws Exception;
 	
 	void modifyEmployee(HashMap<String, Object> map);
 	

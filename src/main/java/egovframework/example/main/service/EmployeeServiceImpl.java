@@ -1,7 +1,9 @@
 package egovframework.example.main.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -24,9 +26,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public void registEmployee(HashMap<String, Object> map) {
+	public void registEmployee(HashMap<String, Object> map) throws Exception {
 		System.out.println("employeeRegistService");
 		// TODO Auto-generated method stub
+		
+		for(Map.Entry<String, Object> p : map.entrySet()) {
+			map.replace(p.getKey(), transSetEncoder(toString(p.getValue())));
+		}
+		
 		employeeDAO.registEmployee(map);
 	}
 
@@ -50,6 +57,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 		System.out.println("employeeDeleteService");
 		// TODO Auto-generated method stub
 		return employeeDAO.deleteEmployee(empNo);
+	}
+	
+	private String transSetEncoder(String param) throws UnsupportedEncodingException {
+		return new String(param.getBytes("8859_1"), "utf-8");
+	}
+	
+	private String toString(Object param) {
+		return String.valueOf(param);
 	}
 }
 

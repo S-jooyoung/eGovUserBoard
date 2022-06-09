@@ -128,16 +128,21 @@
      
      function createInfo(){
     	 
-    	 
     	 if(correctInfo()){
-    		 var params2 = $("#InfoForm").serialize();
+    		 var form = $("#InfoForm")[0];
+    		 var params2 = new FormData(form);
+    		 /* var params2 = $("#InfoForm").serialize(); */
     		 
     		 console.log(params2);
         	 
 	       	  $.ajax({
 	                 url:'/eGovBoard/employee/regist', // 목적지
+	                 enctype: 'multipart/form-data',
 	                 data: params2, //전송 데이터
 	                 type:'POST',
+	                 cache: false,
+	                 contentType: false,
+	                 processData: false,
 	                 success:function(result)
 	                 {
 	              	   alert("유저정보 생성 성공입니다.");
@@ -551,7 +556,7 @@
 		                          	<div class="filebox">
 		                          	  <div id='View_area' style='position:relative; width: 100%; height: 198px; color: black; border: 0px solid black; dispaly: inline; '></div>
 						              <label for="ex_file">업로드</label> 
-						              <input type="file" id="ex_file" name="profile_pt" id="profile_pt" onchange="previewImage(this, 'View_area')"> 
+						              <input type="file" id="ex_file" name="profile_pt" onchange="previewImage(this, 'View_area')"> 
 						            </div>
 		                          </td>
 		                          <th class="bg-primary text-white"><label for="name_r">이름</label></th>
