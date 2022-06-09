@@ -15,6 +15,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Resource(name="employeeDAO")
     private EmployeeDAO employeeDAO;
 
+	
 	@Override
 	public List<HashMap> getEmployeeList(HashMap<String, Object> map) {
 		System.out.println("employeeListService");
@@ -37,10 +38,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public HashMap<String, Object> getEmployeeDetail(Long empIdx) {
+	public HashMap<String, Object> getEmployeeDetail(Long empNo) {
 		System.out.println("employeeDetailService");
 		// TODO Auto-generated method stub
-		return employeeDAO.getEmployeeDetail(empIdx);
+		return employeeDAO.getEmployeeDetail(empNo);
+	}
+
+	@Override
+	public int deleteEmployee(Long empNo) {
+		
+		System.out.println("employeeDeleteService");
+		// TODO Auto-generated method stub
+		return employeeDAO.deleteEmployee(empNo);
 	}
 }
 

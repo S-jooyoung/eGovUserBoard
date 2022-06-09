@@ -15,7 +15,7 @@
 	<select id="getEmployeeDetail" resultType="map" parameterType="long">
 		SELECT *
 		FROM employee
-		WHERE idx = #{empIdx}
+		WHERE employee_no = #{empNo}
 	</select>
 	
 	
@@ -45,21 +45,29 @@
 	<update id="modifyEmployee" parameterType="java.util.Map">
 	UPDATE employee
 	<trim prefix="SET" suffixOverrides=",">
-		<if test="name != nul and name= '' ">name = #{name, jdbcType=VARCHAR},</if>
-		<if test="employeeNo != null and employeeNo = '' ">employee_no = #{employeeNo, jdbcType=VARCHAR},</if>
-		<if test="workDept != null and workDept = '' ">work_dept = #{workDept, jdbcType=VARCHAR},</if>
-		<if test="position != null and position = '' ">position = #{position, jdbcType=VARCHAR},</if>
-		<if test="address != null and address = '' ">address = #{address, jdbcType=VARCHAR},</if>
-		<if test="state != null and state = '' ">state = #{state, jdbcType=VARCHAR},</if>
-		<if test="phoneNo != null and phoneNo= '' ">phone_no = #{phoneNo, jdbcType=VARCHAR},</if>
-		<if test="sex != null and sex =  '' ">sex = #{sex, jdbcType=VARCHAR},</if>
-		<if test="area != null and area = '' ">area = #{area, jdbcType=VARCHAR},</if>
-		<if test="job != null and job = '' ">job = #{job, jdbcType=VARCHAR},</if>
-		<if test="email != null and email = '' ">email = #{email, jdbcType=VARCHAR},</if>
-		<if test="picture != null and picture = '' ">picture = #{picture, jdbcType=VARCHAR},</if>
-		<if test="homeNo != null and homeNo= '' ">home_no = #{homeNo, jdbcType=VARCHAR},</if>
-		<if test="officeNo != null and officeNo = '' ">office_no = #{officeNo, jdbcType=VARCHAR},</if>
+		<if test="name_r != null">name = #{name_r, jdbcType=VARCHAR},</if>
+		<if test="employeeNo_r != null ">employee_no = #{employeeNo_r, jdbcType=VARCHAR},</if>
+		<if test="workDept_r != null ">work_dept = #{workDept, jdbcType=VARCHAR},</if>
+		<if test="position_r != null">position = #{position_r, jdbcType=VARCHAR},</if>
+		<if test="address_r != null ">address = #{address_r, jdbcType=VARCHAR},</if>
+		<if test="state_r != null ">state = #{state_r, jdbcType=VARCHAR},</if>
+		<if test="phoneNo_r != null ">phone_no = #{phoneNo_r, jdbcType=VARCHAR},</if>
+		<if test="sex_r != null ">sex = #{sex_r, jdbcType=VARCHAR},</if>
+		<if test="area_r != null  ">area = #{area_r, jdbcType=VARCHAR},</if>
+		<if test="job_r != null  ">job = #{job_r, jdbcType=VARCHAR},</if>
+		<if test="email != null ">email = #{email, jdbcType=VARCHAR},</if>
+		<if test="picture_r != nul ">picture = #{picture_r, jdbcType=VARCHAR},</if>
+		<if test="homeNo_r != null ">home_no = #{homeNo_r, jdbcType=VARCHAR},</if>
+		<if test="officeNo_r != null">office_no = #{officeNo_r, jdbcType=VARCHAR},</if>
 	</trim>
-	WHERE employee_no  = #{empIdx}
+	WHERE employee_no = #{employeeNo_r}
 	</update>
+	
+	<!-- UPDATE HRM.employee SET name = "조은혜", sex = "여" WHERE employee_no = 7 -->
+	
+	<delete id="deleteEmployee"  parameterType="long">
+	DELETE 
+	FROM employee 
+	WHERE employee_no = #{empNo}
+	</delete>
 </mapper>

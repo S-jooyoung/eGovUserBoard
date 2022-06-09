@@ -54,7 +54,7 @@
     
     <script type="text/javascript">
     
-    var mainKey = 0;
+    
     function searchBtn(){
     	
     	var params = $("#searchForm").serialize();
@@ -72,10 +72,10 @@
                var res=""; 
                
                for(let i=0;i<result.length;i++){            	   	
-                     res+="<tr class='List' onclick='listBtn("+result[i].idx+")'>"
+                     res+="<tr class='List' onclick='listBtn("+result[i].employee_no+")'>"
                      +"<td>"+ result[i].idx +"</td>"
                      +"<td>" + result[i].job + "</td>"
-                     +"<td>" + result[i].employee_no + "</td>"
+                     +"<td><span>Htec-</span>" + result[i].employee_no + "</td>"
                      +"<td>" + result[i].name + "</td>"
                      +"<td>" + result[i].position + "</td>"
                      +"<td>" + result[i].phone_no+ "</td>"
@@ -95,14 +95,15 @@
 
      function listBtn(data){
     	  
+    	 console.log(data);
     	 $.ajax({
-             url:'/eGovBoard//employee/detail/' + data, // 목적지
+             url:'/eGovBoard/employee/detail/' + data, // 목적지
              dataType:'json', // 전송 데이터 형식
              contentType:"application/x-www-form-urlencoded; charset=UTF-8;",
              type:'GET',
              success:function(result)
              {
-            	mainKey = result.idx;
+            	
           	    $('input[name=name_r]').attr('value',result.name);
        		  	$('input[name=employeeNo_r]').attr('value',result.employee_no);
 	          	$('input[name=sex_r]').attr('value',result.sex);
@@ -153,12 +154,16 @@
 	  function modifyInfo(){
 	    	 
 	    	 if(correctInfo()){
+	    		 var empNo2 = $("input[name=employeeNo_r]").val();
+	    		 
 	    		 var params2  = $("#InfoForm").serialize();
+	    		 
+	    		 console.log(params2);
 		    	 
 		    	  $.ajax({
-		              url:'/employee/modify/' + mainKey, // 목적지
+		              url:'/eGovBoard/employee/modify/' + empNo2 , // 목적지
 		              data: params2, //전송 데이터
-		              type:'PUT',
+		              type:'POST',
 		              success:function(result)
 		              {
 		           	   alert("유저정보  수정 성공입니다.");
@@ -173,25 +178,29 @@
 	  
   
 	  function deleteInfo(){
+		 
+		  
+	 	 var priKey = $("input[name=employeeNo_r]").val();
 	 	 
 	 	 
 	 	 
-	 	 var params2 = $("#InfoForm").serialize();
+	 	 if(confirm("정말로 삭제 하시겠습니까?")){
+
+		 	  $.ajax({
+		           url:'/eGovBoard/employee/delete/' + priKey, // 목적지
+		           type:'GET',
+		           contentType:"application/x-www-form-urlencoded; charset=UTF-8;",
+		           success:function(result)
+		           {
+		        	   
+		        	   alert("유저정보 삭제 성공입니다.");
+		           },
+		           error: function(data){
+		               alert("유저정보 삭제 실패입니다.");
+		          }
+		        });
+	 	 }
 	 	 
-	 	 console.log(params2);
-	 	 
-	 	  $.ajax({
-	           url:'/eGovBoard/employee/regist', // 목적지
-	           data: params2, //전송 데이터
-	           type:'POST',
-	           success:function(result)
-	           {
-	        	   alert("유저정보 생성 성공입니다.");
-	           },
-	          error: function(data){
-	            alert("유저정보 생성 실패입니다.");
-	          }
-	        });
 	  }
 	  
   
@@ -270,9 +279,7 @@
     
                 $("[name=address_r]").val(fullRoadAddr);
                 
-                /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
-                document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
+                
             }
          }).open();
      }

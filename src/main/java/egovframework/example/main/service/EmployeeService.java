@@ -11,5 +11,7 @@ public interface EmployeeService {
 	
 	void modifyEmployee(HashMap<String, Object> map);
 	
-	HashMap<String, Object> getEmployeeDetail(Long empIdx);
+	HashMap<String, Object> getEmployeeDetail(Long empNo);
+
+	int deleteEmployee(Long empNo);
 }

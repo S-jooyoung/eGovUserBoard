@@ -36,10 +36,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public HashMap<String, Object> getEmployeeDetail(Long empIdx) {
+	public HashMap<String, Object> getEmployeeDetail(Long empNo) {
 		System.out.println("employeeDetailMapper");
 		// TODO Auto-generated method stub
-		return query.selectOne("getEmployeeDetail", empIdx);
+		return query.selectOne("getEmployeeDetail", empNo);
+	}
+
+	@Override
+	public int deleteEmployee(Long empNo) {
+		System.out.println("employeeDeleteMapper");
+		// TODO Auto-generated method stub
+		return query.delete("deleteEmployee", empNo);
 	}
 
 }

@@ -37,10 +37,10 @@ public class RestEmployeeController {
 		return list;
 	}
 	
-	@GetMapping("/employee/detail/{empIdx}")
-	public HashMap<String, Object> getEmployeeDetail(@PathVariable Long empIdx) {
+	@GetMapping("/employee/detail/{empNo}")
+	public HashMap<String, Object> getEmployeeDetail(@PathVariable Long empNo) {
 		System.out.println("employeeDetailController");
-		HashMap<String, Object> detail = employeeService.getEmployeeDetail(empIdx);
+		HashMap<String, Object> detail = employeeService.getEmployeeDetail(empNo);
 		
 		return detail;
 	}
@@ -59,10 +59,20 @@ public class RestEmployeeController {
 		employeeService.registEmployee(param);
 	}
 	
-	@PutMapping("/employee/modify/{empNo}")
-	public void modifyEmployee(@PathVariable Long empIdx, @RequestParam HashMap<String, Object> param) {
+	@GetMapping("/employee/delete/{empNo}")
+	public int deleteEmployee(@PathVariable Long empNo) {
+		System.out.println("employeeDeleteController");
+		int delete = employeeService.deleteEmployee(empNo);
+		
+		return delete;
+	}
+	
+	
+	@PostMapping("/employee/modify/{empNo}")
+	public void modifyEmployee(@RequestParam HashMap<String, Object> param) {
 		System.out.println("employeeModifyController");
-		param.put("empIdx", empIdx);
 		employeeService.modifyEmployee(param);
 	}
+	
+	
 }
