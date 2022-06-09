@@ -2,6 +2,7 @@ package egovframework.example.main.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,12 +43,12 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public HashMap<String, Object> uploadForm(MultipartFile file) throws IOException {
+	public HashMap<String, Object> uploadForm(MultipartFile file) throws Exception {
 		// TODO Auto-generated method stub
-		String originalName = file.getOriginalFilename();
+		String originalName = transSetEncoder(file.getOriginalFilename());
 		Long fileSize = file.getSize();
 		String contentType = file.getContentType();
-		String savedName = getSavedName(file.getOriginalFilename());
+		String savedName = getSavedName(originalName);
 		String filePath = uploadFile(savedName, file.getBytes());
 		
 		System.out.println("originalName : " + originalName);
@@ -76,7 +77,7 @@ public class FileServiceImpl implements FileService {
 		return map.get("filePath");
 	}
 	
-	private String getSavedName(String originalName){
+	private String getSavedName(String originalName) {
 		UUID uid = UUID.randomUUID();
 		String savedName = uid.toString() + "_" + originalName;
 		return savedName;
@@ -87,5 +88,9 @@ public class FileServiceImpl implements FileService {
 		File target = new File(path, savedName);
 		FileCopyUtils.copy(fileData, target);
 		return filePath;
+	}
+	
+	private String transSetEncoder(String param) throws UnsupportedEncodingException {
+		return new String(param.getBytes("8859_1"), "utf-8");
 	}
 }
