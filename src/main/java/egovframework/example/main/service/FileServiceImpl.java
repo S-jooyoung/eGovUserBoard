@@ -27,19 +27,19 @@ public class FileServiceImpl implements FileService {
 	
 	private final static String path = absolutePath + "temp\\";
 	
-//	@PostConstruct
-//	public void initIt() {
-//		System.out.println("Init method after properties are set : " + path);
-//	  try {
-//		  Path tempPath = Path.of(path);
-//		  if(!Files.exists(tempPath)) {
-//              Files.createDirectories(tempPath);
-//              System.out.println("Create Init Temp Folder");
-//		  }
-//	  } catch (IOException e) {
-//		  e.printStackTrace();
-//	  }
-//	}
+	@PostConstruct
+	public void initIt() {
+		System.out.println("Init method after properties are set : " + path);
+	  try {
+		  Path tempPath = Path.of(path);
+		  if(!Files.exists(tempPath)) {
+              Files.createDirectories(tempPath);
+              System.out.println("Create Init Temp Folder");
+		  }
+	  } catch (IOException e) {
+		  e.printStackTrace();
+	  }
+	}
 
 	@Override
 	public HashMap<String, Object> uploadForm(MultipartFile file) throws IOException {

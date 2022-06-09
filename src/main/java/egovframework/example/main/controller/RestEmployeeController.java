@@ -51,6 +51,7 @@ public class RestEmployeeController {
 		Object picture = null;
 		
 		if(file != null) {
+			System.out.println("fileRegistController");
 			picture = fileService.registFile(fileService.uploadForm(file));
 			param.put("picture", picture);
 		}

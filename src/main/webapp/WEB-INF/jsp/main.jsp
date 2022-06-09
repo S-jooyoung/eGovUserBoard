@@ -127,47 +127,54 @@
      
      function createInfo(){
     	 
-    	 correctInfo();
     	 
-    	 var params2 = $("#InfoForm").serialize();
+    	 if(correctInfo()){
+    		 var params2 = $("#InfoForm").serialize();
+    		 
+    		 console.log(params2);
+        	 
+	       	  $.ajax({
+	                 url:'/eGovBoard/employee/regist', // 목적지
+	                 data: params2, //전송 데이터
+	                 type:'POST',
+	                 success:function(result)
+	                 {
+	              	   alert("유저정보 생성 성공입니다.");
+	                 },
+	                error: function(data){
+	                  alert("유저정보 생성 실패입니다.");
+	                }
+	              });
+    	 }
     	 
-    	  $.ajax({
-              url:'/eGovBoard/employee/regist', // 목적지
-              data: params2, //전송 데이터
-              type:'POST',
-              success:function(result)
-              {
-           	   alert("유저정보 생성 성공입니다.");
-              },
-             error: function(data){
-               alert("유저정보 생성 실패입니다.");
-             }
-           });
+    	 
      }
      
 	  function modifyInfo(){
 	    	 
-	    	 correctInfo();
+	    	 if(correctInfo()){
+	    		 var params2  = $("#InfoForm").serialize();
+		    	 
+		    	  $.ajax({
+		              url:'/employee/modify/' + mainKey, // 목적지
+		              data: params2, //전송 데이터
+		              type:'PUT',
+		              success:function(result)
+		              {
+		           	   alert("유저정보  수정 성공입니다.");
+		              },
+		              error: function(data){
+		               alert("유저정보 수정 실패입니다.");
+		              }
+		           });
+	    	 }
 	    	 
-	    	 var params2  = $("#InfoForm").serialize();
-	    	 
-	    	  $.ajax({
-	              url:'/employee/modify/' + mainKey, // 목적지
-	              data: params2, //전송 데이터
-	              type:'PUT',
-	              success:function(result)
-	              {
-	           	   alert("유저정보  수정 성공입니다.");
-	              },
-	              error: function(data){
-	               alert("유저정보 수정 실패입니다.");
-	              }
-	           });
 	     }
+	  
   
 	  function deleteInfo(){
 	 	 
-	 	 correctInfo();
+	 	 
 	 	 
 	 	 var params2 = $("#InfoForm").serialize();
 	 	 
@@ -226,6 +233,8 @@
     	    return false;
     	  }
     	  
+    	  return true;
+    	  
      }
      
      function execPostCode() {
@@ -268,16 +277,75 @@
          }).open();
      }
      
-     function readURL(input) {
-    	  if (input.files && input.files[0]) {
-    	    var reader = new FileReader();
-    	    reader.onload = function(e) {
-    	      document.getElementById('preview').src = e.target.result;
-    	    };
-    	    reader.readAsDataURL(input.files[0]);
-    	  } else {
-    	    document.getElementById('preview').src = "";
-    	  }
+     
+     function previewImage(targetObj, View_area) {
+    		var preview = document.getElementById(View_area); //div id
+    		var ua = window.navigator.userAgent;
+
+    	  //ie일때(IE8 이하에서만 작동)
+    		if (ua.indexOf("MSIE") > -1) {
+    			targetObj.select();
+    			try {
+    				var src = document.selection.createRange().text; // get file full path(IE9, IE10에서 사용 불가)
+    				var ie_preview_error = document.getElementById("ie_preview_error_" + View_area);
+
+
+    				if (ie_preview_error) {
+    					preview.removeChild(ie_preview_error); //error가 있으면 delete
+    				}
+
+    				var img = document.getElementById(View_area); //이미지가 뿌려질 곳
+
+    				//이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할
+    				img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+src+"', sizingMethod='scale')";
+    			} catch (e) {
+    				if (!document.getElementById("ie_preview_error_" + View_area)) {
+    					var info = document.createElement("<p>");
+    					info.id = "ie_preview_error_" + View_area;
+    					info.innerHTML = e.name;
+    					preview.insertBefore(info, null);
+    				}
+    			}
+    	  //ie가 아닐때(크롬, 사파리, FF)
+    		} else {
+    			var files = targetObj.files;
+    			for ( var i = 0; i < files.length; i++) {
+    				var file = files[i];
+    				var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+    				if (!file.type.match(imageType))
+    					continue;
+    				var prevImg = document.getElementById("prev_" + View_area); //이전에 미리보기가 있다면 삭제
+    				if (prevImg) {
+    					preview.removeChild(prevImg);
+    				}
+    				var img = document.createElement("img"); 
+    				img.id = "prev_" + View_area;
+    				img.name = "file";
+    				img.classList.add("obj");
+    				img.file = file;
+    				img.style.width = '100%'; 
+    				img.style.height = '100%';
+    				preview.appendChild(img);
+    				if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+    					var reader = new FileReader();
+    					reader.onloadend = (function(aImg) {
+    						return function(e) {
+    							aImg.src = e.target.result;
+    						};
+    					})(img);
+    					reader.readAsDataURL(file);
+    				} else { // safari is not supported FileReader
+    					//alert('not supported FileReader');
+    					if (!document.getElementById("sfr_preview_error_"
+    							+ View_area)) {
+    						var info = document.createElement("p");
+    						info.id = "sfr_preview_error_" + View_area;
+    						info.innerHTML = "not supported FileReader";
+    						preview.insertBefore(info, null);
+    					}
+    				}
+    			}
+    		}
     	}
 
     
@@ -285,6 +353,33 @@
     
     <style type="text/css">
     .List:hover{ color: red}
+    
+    
+    .filebox label {
+		  display: flex;
+		  justify-content: center;
+		  padding: .5em .75em;
+		  color: #999;
+		  font-size: inherit;
+		  line-height: normal;
+		  vertical-align: middle;
+		  background-color: #fdfdfd;
+		  cursor: pointer;
+		  border: 1px solid #ebebeb;
+		  border-bottom-color: #e2e2e2;
+		  border-radius: .25em;
+		}
+
+		.filebox input[type="file"] {  /* 파일 필드 숨기기 */
+		  position: absolute;
+		  width: 1px;
+		  height: 1px;
+		  padding: 0;
+		  margin: -1px;
+		  overflow: hidden;
+		  clip:rect(0,0,0,0);
+		  border: 0;
+		}
     </style>
 
   </head>
@@ -422,7 +517,7 @@
                       <button class="btn btn-secondary"  onclick = "resetBtn()">초기화</button>
                       <button class="btn btn-primary"    onclick = "createInfo()" >등록</button>
                       <button class="btn btn-primary"    onclick = "modifyInfo()">수정</button>
-                      <button class="btn btn-danger ">삭제</button>
+                      <button class="btn btn-danger"     onclick = "deleteInfo()">삭제</button>
                     </div>
                 </div>
                
@@ -442,14 +537,15 @@
                         <col width="">
                         </colgroup>
                         
-                     	 
 	                     	 <tbody class="table-border-bottom-0">
 	                     	  <form id="InfoForm"> 
 		                        <tr>
-		                          <td rowspan="4">
-		                            <div style="width: 100%;height: 100%; text-align: center;" id="">사진</div>
-									<img id="preview" />
-									<input type="file" onchange="readURL(this);"> 
+		                          <td rowspan="4" style="padding : 0;">
+		                          	<div class="filebox">
+		                          	  <div id='View_area' style='position:relative; width: 100%; height: 198px; color: black; border: 0px solid black; dispaly: inline; '></div>
+						              <label for="ex_file">업로드</label> 
+						              <input type="file" id="ex_file" name="profile_pt" id="profile_pt" onchange="previewImage(this, 'View_area')"> 
+						            </div>
 		                          </td>
 		                          <th class="bg-primary text-white"><label for="name_r">이름</label></th>
 		                          <td><input type="text" name="name_r" id="name_r" placeholder="필수 입력" size="20" style="width:100%; border: 0;"></td>
