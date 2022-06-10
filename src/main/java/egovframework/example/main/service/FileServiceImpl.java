@@ -84,7 +84,7 @@ public class FileServiceImpl implements FileService {
 	}
 	
 	private String uploadFile(String savedName, byte[] fileData) throws IOException {
-		String filePath = path + savedName;
+		String filePath = savedName;
 		File target = new File(path, savedName);
 		FileCopyUtils.copy(fileData, target);
 		return filePath;

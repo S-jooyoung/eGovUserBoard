@@ -21,7 +21,7 @@
     <!-- Mysql (POM에서 commons-dbcp, mysql-connector-java 관련 라이브러리 설정 ) -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://egov-hrm-mysql.cwbqmbimwd5j.ap-northeast-2.rds.amazonaws.com:3306/HRM" />
+        <property name="url" value="jdbc:mysql://localhost:3306/egovboard" />
         <property name="username" value="root"/>
         <property name="password" value="12345678"/>
     </bean>

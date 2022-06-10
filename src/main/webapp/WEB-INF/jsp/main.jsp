@@ -40,17 +40,7 @@
 
     <!-- Page CSS -->
 
-    <!-- Helpers -->
-    <script src="resources/vendor/js/helpers.js"></script>
-    
-    
-    <!--  Daum Api -->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="resources/js/config.js"></script>
-
+   
     
     <script type="text/javascript">
     
@@ -67,19 +57,17 @@
            type:'GET',
            success:function(result)
            {
-        	   alert("성공");
         	   
                var res=""; 
                
                for(let i=0;i<result.length;i++){            	   	
                      res+="<tr class='List' onclick='listBtn("+result[i].employee_no+")'>"
                      +"<td>"+ result[i].idx +"</td>"
-                     +"<td>" + result[i].job + "</td>"
+                     +"<td>" + result[i].work_dept + "</td>"
                      +"<td><span>Htec-</span>" + result[i].employee_no + "</td>"
                      +"<td>" + result[i].name + "</td>"
                      +"<td>" + result[i].position + "</td>"
                      +"<td>" + result[i].phone_no+ "</td>"
-                     +"<td>" + result[i].state + "</td>"
                      +"<td>" + result[i].address+ "</td>"
                      +"</tr>"; 
                }
@@ -103,7 +91,9 @@
              type:'GET',
              success:function(result)
              {
-            	
+            	 
+            	           	         
+                // 유저 정보 넣어주기
           	    $('input[name=name_r]').attr('value',result.name);
        		  	$('input[name=employeeNo_r]').attr('value',result.employee_no);
 	          	$('input[name=sex_r]').attr('value',result.sex);
@@ -112,11 +102,23 @@
 	          	$('input[name=position_r]').attr('value',result.position);
 	          	$('input[name=birthDate_r]').attr('value',result.birth_date);
 	          	$('input[name=area_r]').attr('value',result.area);
-	          	$('input[name=job_r]').attr('value',result.work_dept);
+	          	$('input[name=job_r]').attr('value',result.job_r);
 	          	$('input[name=phoneNo_r]').attr('value',result.phone_no);
 	          	$('input[name=officeNo_r]').attr('value',result.office_no);
 	          	$('input[name=homeNo_r]').attr('value',result.home_no);
 	          	$('input[name=address_r]').attr('value',result.address);
+	          	
+	          	 $("#View_area").empty();
+	          	if(result.picture){
+	          		 // 이미지 생성
+	            	var res=""; 
+	                res += "<img id='fileload' src = '/fileupload/"+ result.picture +"' style = 'width: 130px; height:100%'/>";      
+	                $("#View_area").append(res);
+	          	}else{
+	          		
+	          	}
+	          	
+	           
                
              },
             error: function(data){
@@ -131,8 +133,8 @@
     	 if(correctInfo()){
     		 var form = $("#InfoForm")[0];
     		 var params2 = new FormData(form);
-    		 /* var params2 = $("#InfoForm").serialize(); */
     		 
+    		 /* var params2 = $("#InfoForm").serialize(); */
     		 console.log(params2);
         	 
 	       	  $.ajax({
@@ -141,11 +143,12 @@
 	                 data: params2, //전송 데이터
 	                 type:'POST',
 	                 cache: false,
-	                 contentType: false,
 	                 processData: false,
+	                 contentType:false,
 	                 success:function(result)
 	                 {
 	              	   alert("유저정보 생성 성공입니다.");
+	              	   resetBtn();
 	                 },
 	                error: function(data){
 	                  alert("유저정보 생성 실패입니다.");
@@ -161,17 +164,19 @@
 	    	 if(correctInfo()){
 	    		 var empNo2 = $("input[name=employeeNo_r]").val();
 	    		 
-	    		 var params2  = $("#InfoForm").serialize();
+	    		 var params2 = $("#InfoForm").serialize();
 	    		 
 	    		 console.log(params2);
 		    	 
 		    	  $.ajax({
 		              url:'/eGovBoard/employee/modify/' + empNo2 , // 목적지
 		              data: params2, //전송 데이터
-		              type:'POST',
+	                  type:'POST',
 		              success:function(result)
 		              {
 		           	   alert("유저정보  수정 성공입니다.");
+		           	   resetBtn();
+		           	   
 		              },
 		              error: function(data){
 		               alert("유저정보 수정 실패입니다.");
@@ -197,13 +202,15 @@
 		           contentType:"application/x-www-form-urlencoded; charset=UTF-8;",
 		           success:function(result)
 		           {
-		        	   
 		        	   alert("유저정보 삭제 성공입니다.");
+		        	   resetBtn();
 		           },
 		           error: function(data){
 		               alert("유저정보 삭제 실패입니다.");
 		          }
 		        });
+		 	  
+		 	 
 	 	 }
 	 	 
 	  }
@@ -211,7 +218,23 @@
   
      
      function resetBtn(){
-    	 $("#InfoForm")[0].reset();
+    	$("#InfoForm")[0].reset();
+    	$("#fileload").remove();
+    	$(".List").remove();
+    	$("#prev_View_area").remove();
+    	$('input[name=name_r]').attr('value',null);
+	  	$('input[name=employeeNo_r]').attr('value',null);
+       	$('input[name=sex_r]').attr('value',null);
+       	$('input[name=hireDate_r]').attr('value',null);
+       	$('input[name=workDept_r]').attr('value',null);
+       	$('input[name=position_r]').attr('value',null);
+       	$('input[name=birthDate_r]').attr('value',null);
+       	$('input[name=area_r]').attr('value',null);
+       	$('input[name=job_r]').attr('value',null);
+       	$('input[name=phoneNo_r]').attr('value',null);
+       	$('input[name=officeNo_r]').attr('value',null);
+       	$('input[name=homeNo_r]').attr('value',null);
+       	$('input[name=address_r]').attr('value',null);
      }
      
      
@@ -220,6 +243,7 @@
     	 var empNo = $("input[name=employeeNo_r]").val();
     	 var AdrNm = $("input[name=address_r]").val();
     	 var cell = $("input[name=phoneNo_r]").val();
+    	 /* var picture = $("input[name=profile_pt]").val(); */
     	
     	 
     	  if(!empNm){
@@ -247,6 +271,11 @@
     	    return false;
     	  }
     	  
+    	/*   if(!picture){
+    		  alert("사진을 입력해주세요");
+    		  $("input[name=profile_pt]").focus();
+    	  }
+    	   */
     	  return true;
     	  
      }
@@ -309,7 +338,7 @@
     				var img = document.getElementById(View_area); //이미지가 뿌려질 곳
 
     				//이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할
-    				img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+src+"', sizingMethod='scale')";
+    				img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + src + "', sizingMethod='scale')";
     			} catch (e) {
     				if (!document.getElementById("ie_preview_error_" + View_area)) {
     					var info = document.createElement("<p>");
@@ -472,7 +501,7 @@
 	                      <div class="mb-3 w-25 px-2">
 	                        <div class="input-group">
 	                          <span class="input-group-text" id="inputGroupSelect01">주소</span>
-	                          <input type="text" class="form-control" id="address" name="address" placeholder="입력하세요" />
+	                          <input type="text" class="form-control" id="address" name="address" readonly />
 	                        </div>
 	                      </div>
 	                    </div>
@@ -503,7 +532,6 @@
                           <th>이름</th>
                           <th>직급</th>
                           <th>연락처</th>
-                          <th>상태</th>
                           <th>주소</th>
                         </tr>
                       </thead>
@@ -551,60 +579,59 @@
                         
 	                     	 <tbody class="table-border-bottom-0">
 	                     	  <form id="InfoForm"> 
-		                        <tr>
-		                          <td rowspan="4" style="padding : 0;">
-		                          	<div class="filebox">
-		                          	  <div id='View_area' style='position:relative; width: 100%; height: 198px; color: black; border: 0px solid black; dispaly: inline; '></div>
-						              <label for="ex_file">업로드</label> 
-						              <input type="file" id="ex_file" name="profile_pt" onchange="previewImage(this, 'View_area')"> 
-						            </div>
-		                          </td>
-		                          <th class="bg-primary text-white"><label for="name_r">이름</label></th>
-		                          <td><input type="text" name="name_r" id="name_r" placeholder="필수 입력" size="20" style="width:100%; border: 0;"></td>
-		                          <th class="bg-primary text-white"><label for="employeeNo_r">사원번호</label></th>
-		                           <td>
-		                           <span>Htec-</span>
-		                           <input type="text" name="employeeNo_r" id="employeeNo_r" placeholder="필수 입력"  style=" border: 0;"></td>
-		                          <th class="bg-primary text-white"><label for="sex_r">성별</label></th>
-		                           <td><input type="text" name="sex_r" id="sex_r" size="20" style="width:100%; border: 0;"></td>
-		                          <th class="bg-primary text-white"><label for="hireDate_r">입사일</label></th>
-		                          <td><input type="text" name="hireDate_r" id="hireDate_r" size="20" style="width:100%; border: 0;"></td>
-		                          
-		                        </tr>
-		                    
-			                         <tr>
-			                        <th class="bg-primary text-white"><label for="workDept_r">부서</label></th>
-			                        <td><input type="text" name="work_Drpt_r" id="work_Drpt_r"  size="20" style="width:100%; border: 0;"></td> 
-			                        <th class="bg-primary text-white"><label for="position_r">직급</label></th>
-			                        <td><input type="text" name="position_r" id="position_r" size="20" style="width:100%; border: 0;"></td> 
-			                        <th class="bg-primary text-white"><label for="birthDate_r">생년월일</label></th>
-			                        <td><input type="text" name="birthDate_r" id="birthDate_r" size="20" style="width:100%; border: 0;"></td>
-			                        <th class="bg-primary text-white"><label for="area_r">발령기준지</label></th>
-			                        <td><input type="text" name="area_r" id="area_r" size="20" style="width:100%; border: 0;"></td>
-			                    </tr>
-			                   
-			                    <tr>
-			                        <th class="bg-primary text-white"><label for="{job_r">직무</label></th>
-			                        <td><input type="text" name="job_r" id="job_r" size="20" style="width:100%; border: 0;"></td>
-			                        <th class="bg-primary text-white"><label for="phoneNo_r">휴대전화</label></th>
-			                        <td><input type="text" name="phoneNo_r" placeholder="필수 입력" id="phoneNo_r" size="20" style="width:100%; border: 0;"></td>
-			                        <th class="bg-primary text-white"><label for="officeNo_r">사무실전화</label></th>
-			                        <td><input type="text" name="officeNo_r" id="officeNo_r" size="20" style="width:100%; border: 0;"></td>
-			                        <th class="bg-primary text-white"><label for="homeNo_r">집전화</label></th>
-			                        <td><input type="text" name="homeNo_r" id="homeNo_r" size="20" style="width:100%; border: 0;"></td>
-			                    </tr>
-			                   
-			                   <tr>
-			                        <th class="bg-primary text-white"><label for="email_r">이메일</label></th>
-			                        <td colspan="3"><input type="text" name="email_r" id="email_r" size="20" style="width:100%; border: 0;"></td>
-			                        <th class="bg-primary text-white"><label for="address_r">주소</label></th>
-			                        <td colspan="3">
-				                        <input type="text" name="address_r" id="address_r" style="width:70%; border: 0;" readonly>
-				                        <input type="button" onclick="execPostCode()" class="btn btn-primary"  value="주소 검색"/>
-			                        </td> 
-			                        
-			                    </tr>
-			                  </form>      
+							        <tr>
+							          <td rowspan="4" style="padding : 0;">
+							              <div class="filebox">
+							                <div id='View_area' style='position:relative; width: 100%; height: 198px; color: black; border: 0px solid black; dispaly: inline; '></div>
+							              <label for="ex_file">업로드</label> 
+							              <input type="file" id="ex_file" name="profile_pt" onchange="previewImage(this, 'View_area')"> 
+							            </div>
+							          </td>
+							          <th class="bg-primary text-white"><label for="name_r">이름</label></th>
+							          <td><input type="text" name="name_r" id="name_r" placeholder="필수 입력" size="20" style="width:100%; border: 0;"></td>
+							          <th class="bg-primary text-white"><label for="employeeNo_r">사원번호</label></th>
+							           <td>
+							           <span>Htec-</span>
+							           <input type="text" name="employeeNo_r" id="employeeNo_r" placeholder="필수 입력"  style=" border: 0;"></td>
+							          <th class="bg-primary text-white"><label for="sex_r">성별</label></th>
+							           <td><input type="text" name="sex_r" id="sex_r" size="20" style="width:100%; border: 0;"></td>
+							          <th class="bg-primary text-white"><label for="hireDate_r">입사일</label></th>
+							          <td><input type="text" name="hireDate_r" id="hireDate_r" size="20" style="width:100%; border: 0;"></td> 
+							        </tr>
+							    
+							         <tr>
+							            <th class="bg-primary text-white"><label for="workDept_r">부서</label></th>
+							            <td><input type="text" name="workDept_r" id="work_Drpt_r"  size="20" style="width:100%; border: 0;"></td> 
+							            <th class="bg-primary text-white"><label for="position_r">직급</label></th>
+							            <td><input type="text" name="position_r" id="position_r" size="20" style="width:100%; border: 0;"></td> 
+							            <th class="bg-primary text-white"><label for="birthDate_r">생년월일</label></th>
+							            <td><input type="text" name="birthDate_r" id="birthDate_r" size="20" style="width:100%; border: 0;"></td>
+							            <th class="bg-primary text-white"><label for="area_r">발령기준지</label></th>
+							            <td><input type="text" name="area_r" id="area_r" size="20" style="width:100%; border: 0;"></td>
+							        </tr>
+							       
+							        <tr>
+							            <th class="bg-primary text-white"><label for="{job_r">직무</label></th>
+							            <td><input type="text" name="job_r" id="job_r" size="20" style="width:100%; border: 0;"></td>
+							            <th class="bg-primary text-white"><label for="phoneNo_r">휴대전화</label></th>
+							            <td><input type="text" name="phoneNo_r" placeholder="필수 입력" id="phoneNo_r" size="20" style="width:100%; border: 0;"></td>
+							            <th class="bg-primary text-white"><label for="officeNo_r">사무실전화</label></th>
+							            <td><input type="text" name="officeNo_r" id="officeNo_r" size="20" style="width:100%; border: 0;"></td>
+							            <th class="bg-primary text-white"><label for="homeNo_r">집전화</label></th>
+							            <td><input type="text" name="homeNo_r" id="homeNo_r" size="20" style="width:100%; border: 0;"></td>
+							        </tr>
+							       
+							       <tr>
+							            <th class="bg-primary text-white"><label for="email_r">이메일</label></th>
+							            <td colspan="3"><input type="text" name="email_r" id="email_r" size="20" style="width:100%; border: 0;"></td>
+							            <th class="bg-primary text-white"><label for="address_r">주소</label></th>
+							            <td colspan="3">
+							                <input type="text" name="address_r" id="address_r" style="width:70%; border: 0;" placeholder="필수 입력" readonly>
+							                <input type="button" onclick="execPostCode()" class="btn btn-primary"  value="주소 검색"/>
+							            </td> 
+							            
+							        </tr>
+							    </form>  
 			                </tbody>
              			  
                     </table>
@@ -613,6 +640,17 @@
               </div>
               <!--/  Info Table -->
 
+    <!-- Helpers -->
+    <script src="resources/vendor/js/helpers.js"></script>
+    
+    
+    <!--  Daum Api -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="resources/js/config.js"></script>
+   
 
             
     <!-- Core JS -->
@@ -625,7 +663,7 @@
     <script src="resources/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
-    <!-- Vendors JS -->
+   
 
     <!-- Main JS -->
     <script src="resources/js/main.js"></script>
