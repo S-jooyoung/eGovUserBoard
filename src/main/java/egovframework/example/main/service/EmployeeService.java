@@ -9,7 +9,7 @@ public interface EmployeeService {
 	
 	void registEmployee(HashMap<String, Object> map) throws Exception;
 	
-	void modifyEmployee(HashMap<String, Object> map);
+	void modifyEmployee(HashMap<String, Object> map) throws Exception;
 	
 	HashMap<String, Object> getEmployeeDetail(Long empNo);
 

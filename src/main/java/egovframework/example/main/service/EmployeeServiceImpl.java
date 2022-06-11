@@ -38,8 +38,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public void modifyEmployee(HashMap<String, Object> map) {
+	public void modifyEmployee(HashMap<String, Object> map) throws Exception {
 		System.out.println("employeeModifyService");
+		
+		
+		for(Map.Entry<String, Object> p : map.entrySet()) {
+			map.replace(p.getKey(), transSetEncoder(toString(p.getValue())));
+		}
+		
 		// TODO Auto-generated method stub
 		employeeDAO.modifyEmployee(map);
 	}

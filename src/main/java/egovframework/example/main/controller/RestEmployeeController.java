@@ -20,13 +20,13 @@ import egovframework.example.main.service.FileService;
 
 @RestController
 public class RestEmployeeController {
-	
-	@Resource(name="employeeService")
+
+	@Resource(name = "employeeService")
 	private EmployeeService employeeService;
-	
-	@Resource(name="fileService")
+
+	@Resource(name = "fileService")
 	private FileService fileService;
-	
+
 	@GetMapping("/employee/list")
 	public List<HashMap> getEmployeeList(@RequestParam(required = false) HashMap<String, Object> param) {
 		System.out.println("employeeListController");
@@ -34,43 +34,59 @@ public class RestEmployeeController {
 
 		return list;
 	}
-	
+
 	@GetMapping("/employee/detail/{empNo}")
 	public HashMap<String, Object> getEmployeeDetail(@PathVariable Long empNo) {
 		System.out.println("employeeDetailController");
 		HashMap<String, Object> detail = employeeService.getEmployeeDetail(empNo);
-		
+
 		return detail;
 	}
-	
-	@PostMapping("/employee/regist")
-	public void registEmployee(@RequestParam(name = "profile_pt", required = false) MultipartFile file, @RequestParam(required = false) HashMap<String, Object> param) throws Exception {
-		System.out.println("employeeRegistController");
-		Object picture = null;
-		
-		if(file != null) {
-			System.out.println("fileRegistController");
-			picture = fileService.registFile(fileService.uploadForm(file));
-			param.put("picture_r", picture);
-		}
-		
-		employeeService.registEmployee(param);
-	}
-	
+
 	@GetMapping("/employee/delete/{empNo}")
 	public int deleteEmployee(@PathVariable Long empNo) {
 		System.out.println("employeeDeleteController");
 		int delete = employeeService.deleteEmployee(empNo);
-		
+
 		return delete;
 	}
-	
-	
+
+	@PostMapping("/employee/regist")
+	public void registEmployee(@RequestParam(name = "profile_pt", required = false) MultipartFile file,
+			@RequestParam(required = false) HashMap<String, Object> param) throws Exception {
+		System.out.println("employeeRegistController");
+		Object picture = null;
+
+		if (file != null) {
+			System.out.println("fileRegistController");
+			picture = fileService.registFile(fileService.uploadForm(file));
+			param.put("picture_r", picture);
+		}
+
+		employeeService.registEmployee(param);
+	}
+
 	@PostMapping("/employee/modify/{empNo}")
-	public void modifyEmployee(@RequestParam HashMap<String, Object> param) {
+	public void modifyEmployee(@RequestParam(name = "profile_pt", required = false) MultipartFile file,
+			@RequestParam(required = false) HashMap<String, Object> param) throws Exception {
 		System.out.println("employeeModifyController");
+		Object picture = null;
+
+		if (file != null) {
+			System.out.println("fileModifyController");
+			picture = fileService.registFile(fileService.uploadForm(file));
+			param.put("picture_r", picture);
+		}
+
 		employeeService.modifyEmployee(param);
 	}
-	
+
+//	
+//	@PostMapping("/employee/modify/{empNo}")
+//	public void modifyEmployee(@RequestParam HashMap<String, Object> param) {
+//		System.out.println("employeeModifyController");
+//		employeeService.modifyEmployee(param);
+//	}
+//	
 
 }
