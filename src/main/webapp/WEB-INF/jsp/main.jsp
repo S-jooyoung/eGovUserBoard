@@ -76,7 +76,8 @@
 
 	function listBtn(data) {
 
-		console.log(data);
+		var reg = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+
 		$
 				.ajax({
 					url : '/eGovBoard/employee/detail/' + data, // 목적지
@@ -109,15 +110,24 @@
 								.attr('value', result.address);
 
 						$("#View_area").empty();
-						if (result.picture) {
+						
+						
+						
+						if (result.picture.match(reg)) {
 							// 이미지 생성
 							var res = "";
 							res += "<img id='fileload' src = '/fileupload/"
 									+ result.picture
 									+ "' style = 'width: 130px; height:100%'/>";
 							$("#View_area").append(res);
+							
+							console.log(res);
 						} else {
-
+							var res = "";
+							res += "<img id='fileload' src = '/fileupload/noimage.jpg' style = 'width: 130px; height:100%'/>"; 
+							$('#View_area').append(res);
+							
+							console.log(res);
 						}
 
 					},
@@ -134,7 +144,7 @@
 			var params2 = new FormData(form);
 
 			/* var params2 = $("#InfoForm").serialize(); */
-			
+
 			$.ajax({
 				url : '/eGovBoard/employee/regist', // 목적지
 				enctype : 'multipart/form-data',
@@ -307,9 +317,8 @@
 	}
 
 	function previewImage(targetObj, View_area) {
-		
+
 		$("#fileload").remove();
-		
 
 		var preview = document.getElementById(View_area); //div id
 		var ua = window.navigator.userAgent;
