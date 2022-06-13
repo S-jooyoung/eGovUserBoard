@@ -11,6 +11,8 @@ public interface EmployeeDAO {
 
 	// 유저 목록
 	List<HashMap> getEmployeeList(HashMap<String, Object> map);
+	
+	int getEmployeeCount();
 
 	// 유저 정보 등록
 	void registEmployee(HashMap<String, Object> map);

@@ -25,6 +25,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	public int getEmployeeCount() {
+		System.out.println("employeeCountService");
+		// TODO Auto-generated method stub
+		return employeeDAO.getEmployeeCount();
+	}
+
+	@Override
 	public void registEmployee(HashMap<String, Object> map) throws Exception {
 		System.out.println("employeeRegistService");
 		// TODO Auto-generated method stub

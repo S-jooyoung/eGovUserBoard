@@ -6,6 +6,8 @@ import java.util.List;
 public interface EmployeeService {
 
 	List<HashMap> getEmployeeList(HashMap<String, Object> map);
+	
+	int getEmployeeCount();
 
 	void registEmployee(HashMap<String, Object> map) throws Exception;
 

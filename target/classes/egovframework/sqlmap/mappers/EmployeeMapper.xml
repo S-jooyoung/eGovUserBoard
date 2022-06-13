@@ -19,7 +19,7 @@
 			<if test="position != null and position != '' ">AND position like CONCAT('%',#{position}, '%')</if>
 			<if test="address != null and address != '' ">AND address like CONCAT('%',#{address},'%')</if>
 		</trim>
-		ORDER BY employee_no DESC
+		ORDER BY employee_no DESC limit #{displayPost}, #{postNum}
 		
 	</select>
 	

@@ -22,6 +22,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
+	public int getEmployeeCount() {
+		System.out.println("employeeCountMapper");
+		// TODO Auto-generated method stub
+		return query.selectOne("getEmployeeCount");
+	}
+
+	@Override
 	public void registEmployee(HashMap<String, Object> map) {
 		System.out.println("employeeRegistMapper");
 		// TODO Auto-generated method stub
