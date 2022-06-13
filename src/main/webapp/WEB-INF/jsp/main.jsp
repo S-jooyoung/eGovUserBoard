@@ -43,7 +43,7 @@
 	function searchBtn() {
 
 		var params = $("#searchForm").serialize();
-		
+
 		console.log(params);
 
 		$.ajax({
@@ -55,6 +55,8 @@
 			success : function(result) {
 
 				var res = "";
+				
+				console.log(result);
 
 				for (let i = 0; i < result.length; i++) {
 					res += "<tr class='List' onclick='listBtn("
@@ -69,6 +71,9 @@
 				}
 				$("#userList").empty();
 				$("#userList").append(res);
+				
+				
+				
 			},
 			error : function(data) {
 				alert("실패입니다.");
@@ -79,7 +84,6 @@
 	function listBtn(data) {
 
 		var reg = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
-		
 
 		$
 				.ajax({
@@ -90,7 +94,7 @@
 					success : function(result) {
 
 						inputReset();
-						
+
 						// 유저 정보 넣어주기
 						$('input[name=name_r]').attr('value', result.name);
 						$('input[name=employeeNo_r]').attr('value',
@@ -115,7 +119,6 @@
 								.attr('value', result.address);
 
 						$("#View_area").empty();
-					
 
 						if (result.picture.match(reg)) {
 							// 이미지 생성
@@ -229,6 +232,7 @@
 		$("#fileload").remove();
 		$(".List").remove();
 		$("#prev_View_area").remove();
+
 		$('input[name=name_r]').attr('value', null);
 		$('input[name=employeeNo_r]').attr('value', null);
 		$('input[name=sex_r]').attr('value', null);
@@ -243,8 +247,8 @@
 		$('input[name=homeNo_r]').attr('value', null);
 		$('input[name=address_r]').attr('value', null);
 	}
-	
-	function inputReset(){
+
+	function inputReset() {
 		$('input[name=name_r]').attr('value', null);
 		$('input[name=employeeNo_r]').attr('value', null);
 		$('input[name=sex_r]').attr('value', null);
@@ -436,6 +440,22 @@
 	clip: rect(0, 0, 0, 0);
 	border: 0;
 }
+
+.card-header {
+	padding: 1rem 1rem;
+}
+
+.card-body {
+	padding: 1rem 1.5rem;
+}
+
+.layout-wrapper {
+	height: 100vh;
+}
+
+.Page {
+	padding-top: 15px;
+}
 </style>
 
 </head>
@@ -472,7 +492,7 @@
 					<!-- Content -->
 
 					<div class="container-xxl flex-grow-1 container-p-y">
-						<h4 class="fw-bold py-3 mb-4">
+						<h4 class="fw-bold">
 							<span class="text-muted fw-light">HRM- /</span> 직원검색
 						</h4>
 
@@ -522,16 +542,19 @@
 											<div class="input-group">
 												<span class="input-group-text" id="inputGroupSelect01">주소</span>
 												<input type="text" class="form-control" id="address"
-													name="address"  placeholder='입력하세요'/>
+													name="address" placeholder='입력하세요' />
 											</div>
 										</div>
+
+										<input type="button" onclick="searchBtn()"
+											class="btn btn-primary mb-3" value="검색" />
 									</div>
 
 
-									<div style="display: flex; justify-content: flex-end;">
+									<!-- <div style="display: flex; justify-content: flex-end;">
 										<input type="button" onclick="searchBtn()"
 											class="btn btn-primary me-2" value="검색" />
-									</div>
+									</div> -->
 								</form>
 
 
@@ -561,10 +584,26 @@
 
 										</tbody>
 									</table>
+
 								</div>
 							</div>
 						</div>
 						<!--/  List Table -->
+
+
+						 <!-- Paging Center Alignment -->
+						<nav aria-label="Page navigation" class="Page">
+							<ul class="pagination justify-content-center">
+								<li class="page-item prev"><a class="page-link" href="#">이전</a></li>
+								<li class="page-item active"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item "><a class="page-link" href="#">3</a>
+								</li>
+								<li class="page-item"><a class="page-link" href="#">4</a></li>
+								<li class="page-item"><a class="page-link" href="#">5</a></li>
+								<li class="page-item next"><a class="page-link" href="#">다음</a></li>
+							</ul>
+						</nav> 
 
 
 						<hr class="my-4" />

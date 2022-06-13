@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class EmployeeController {
-	
+
 	@RequestMapping("/main.do")
 	public String showIndexPage() {
 		return "/main";

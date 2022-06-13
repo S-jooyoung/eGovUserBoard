@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository("fileDAO")
 public class FileDAOImpl implements FileDAO {
-	
+
 	@Autowired
 	private SqlSessionTemplate query;
-	
+
 	@Override
 	public void registFile(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub

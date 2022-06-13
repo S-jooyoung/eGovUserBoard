@@ -28,7 +28,8 @@ public class RestEmployeeController {
 	private FileService fileService;
 
 	@GetMapping("/employee/list")
-	public List<HashMap> getEmployeeList(@RequestParam(required = false) HashMap<String, Object> param) {
+	public List<HashMap> getEmployeeList(@RequestParam(required = false) HashMap<String, Object> param)
+			throws Exception {
 		System.out.println("employeeListController");
 		List<HashMap> list = employeeService.getEmployeeList(param);
 
@@ -80,13 +81,5 @@ public class RestEmployeeController {
 
 		employeeService.modifyEmployee(param);
 	}
-
-//	
-//	@PostMapping("/employee/modify/{empNo}")
-//	public void modifyEmployee(@RequestParam HashMap<String, Object> param) {
-//		System.out.println("employeeModifyController");
-//		employeeService.modifyEmployee(param);
-//	}
-//	
 
 }

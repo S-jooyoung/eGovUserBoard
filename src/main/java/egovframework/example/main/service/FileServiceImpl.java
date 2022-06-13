@@ -21,25 +21,25 @@ import egovframework.example.main.dao.FileDAO;
 @Service("fileService")
 public class FileServiceImpl implements FileService {
 
-	@Resource(name="fileDAO")
-    private FileDAO fileDAO;
-	
+	@Resource(name = "fileDAO")
+	private FileDAO fileDAO;
+
 	private final static String absolutePath = "C:\\upload\\";
-	
+
 	private final static String path = absolutePath + "temp\\";
-	
+
 	@PostConstruct
 	public void initIt() {
 		System.out.println("Init method after properties are set : " + path);
-	  try {
-		  Path tempPath = Path.of(path);
-		  if(!Files.exists(tempPath)) {
-              Files.createDirectories(tempPath);
-              System.out.println("Create Init Temp Folder");
-		  }
-	  } catch (IOException e) {
-		  e.printStackTrace();
-	  }
+		try {
+			Path tempPath = Path.of(path);
+			if (!Files.exists(tempPath)) {
+				Files.createDirectories(tempPath);
+				System.out.println("Create Init Temp Folder");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class FileServiceImpl implements FileService {
 		String contentType = file.getContentType();
 		String savedName = getSavedName(originalName);
 		String filePath = uploadFile(savedName, file.getBytes());
-		
+
 		System.out.println("originalName : " + originalName);
 		System.out.println("fileSize : " + fileSize);
 		System.out.println("contentType : " + contentType);
@@ -63,7 +63,7 @@ public class FileServiceImpl implements FileService {
 		map.put("contentType", contentType);
 		map.put("savedName", savedName);
 		map.put("filePath", filePath);
-		
+
 		Path localFilePath = Paths.get(filePath);
 		System.out.println("localFilePath : " + localFilePath);
 
@@ -76,20 +76,20 @@ public class FileServiceImpl implements FileService {
 		fileDAO.registFile(map);
 		return map.get("filePath");
 	}
-	
+
 	private String getSavedName(String originalName) {
 		UUID uid = UUID.randomUUID();
 		String savedName = uid.toString() + "_" + originalName;
 		return savedName;
 	}
-	
+
 	private String uploadFile(String savedName, byte[] fileData) throws IOException {
 		String filePath = savedName;
 		File target = new File(path, savedName);
 		FileCopyUtils.copy(fileData, target);
 		return filePath;
 	}
-	
+
 	private String transSetEncoder(String param) throws UnsupportedEncodingException {
 		return new String(param.getBytes("8859_1"), "utf-8");
 	}

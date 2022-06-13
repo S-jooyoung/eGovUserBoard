@@ -28,6 +28,8 @@
 			</list>
 		</property>
 	</bean>
+	
+	
 
 	<bean id="traceHandlerService" class="egovframework.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager">
 		<property name="reqExpMatcher">
