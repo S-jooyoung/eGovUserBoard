@@ -49,7 +49,7 @@
 	<trim prefix="SET" suffixOverrides=",">
 		<if test="name_r != null">name = #{name_r, jdbcType=VARCHAR},</if>
 		<if test="employeeNo_r != null ">employee_no = #{employeeNo_r, jdbcType=VARCHAR},</if>
-		<if test="workDept_r != null ">work_dept = #{workDept, jdbcType=VARCHAR},</if>
+		<if test="workDept_r != null ">work_dept = #{workDept_r, jdbcType=VARCHAR},</if>
 		<if test="position_r != null">position = #{position_r, jdbcType=VARCHAR},</if>
 		<if test="address_r != null ">address = #{address_r, jdbcType=VARCHAR},</if>
 		<if test="state_r != null ">state = #{state_r, jdbcType=VARCHAR},</if>

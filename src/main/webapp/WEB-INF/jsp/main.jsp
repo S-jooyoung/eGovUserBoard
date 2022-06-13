@@ -79,6 +79,7 @@
 	function listBtn(data) {
 
 		var reg = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+		
 
 		$
 				.ajax({
@@ -88,6 +89,8 @@
 					type : 'GET',
 					success : function(result) {
 
+						inputReset();
+						
 						// 유저 정보 넣어주기
 						$('input[name=name_r]').attr('value', result.name);
 						$('input[name=employeeNo_r]').attr('value',
@@ -102,7 +105,7 @@
 						$('input[name=birthDate_r]').attr('value',
 								result.birth_date);
 						$('input[name=area_r]').attr('value', result.area);
-						$('input[name=job_r]').attr('value', result.job_r);
+						$('input[name=job_r]').attr('value', result.job);
 						$('input[name=phoneNo_r]').attr('value',
 								result.phone_no);
 						$('input[name=officeNo_r]').attr('value',
@@ -112,6 +115,7 @@
 								.attr('value', result.address);
 
 						$("#View_area").empty();
+					
 
 						if (result.picture.match(reg)) {
 							// 이미지 생성
@@ -225,6 +229,22 @@
 		$("#fileload").remove();
 		$(".List").remove();
 		$("#prev_View_area").remove();
+		$('input[name=name_r]').attr('value', null);
+		$('input[name=employeeNo_r]').attr('value', null);
+		$('input[name=sex_r]').attr('value', null);
+		$('input[name=hireDate_r]').attr('value', null);
+		$('input[name=workDept_r]').attr('value', null);
+		$('input[name=position_r]').attr('value', null);
+		$('input[name=birthDate_r]').attr('value', null);
+		$('input[name=area_r]').attr('value', null);
+		$('input[name=job_r]').attr('value', null);
+		$('input[name=phoneNo_r]').attr('value', null);
+		$('input[name=officeNo_r]').attr('value', null);
+		$('input[name=homeNo_r]').attr('value', null);
+		$('input[name=address_r]').attr('value', null);
+	}
+	
+	function inputReset(){
 		$('input[name=name_r]').attr('value', null);
 		$('input[name=employeeNo_r]').attr('value', null);
 		$('input[name=sex_r]').attr('value', null);
@@ -614,7 +634,7 @@
 													<th class="bg-primary text-white"><label
 														for="workDept_r">부서</label></th>
 													<td><input type="text" name="workDept_r"
-														id="work_Drpt_r" size="20" style="width: 100%; border: 0;"></td>
+														id="workDept_r" size="20" style="width: 100%; border: 0;"></td>
 													<th class="bg-primary text-white"><label
 														for="position_r">직급</label></th>
 													<td><input type="text" name="position_r"
