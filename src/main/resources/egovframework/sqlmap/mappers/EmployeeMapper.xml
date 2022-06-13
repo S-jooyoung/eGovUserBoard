@@ -6,10 +6,12 @@
 		SELECT *
 		FROM employee
 		<trim prefix="WHERE" prefixOverrides="AND">
-			<if test="name != null and name != '' ">AND name = #{name}</if>
-			<if test="work_dept != null and work_dept != '' ">AND work_dept = #{work_dept}</if>
-			<if test="position != null and position != '' ">AND position = #{position}</if>
+			<if test="name != null and name != '' ">AND name like CONCAT('%',#{name}, '%')</if>
+			<if test="work_dept != null and work_dept != '' ">AND work_dept like CONCAT('%',#{work_dept},'%')</if>
+			<if test="position != null and position != '' ">AND position like CONCAT('%',#{position}, '%')</if>
+			<if test="address != null and address != '' ">AND address like CONCAT('%',#{address},'%')</if>
 		</trim>
+		
 	</select>
 	
 	<select id="getEmployeeDetail" resultType="map" parameterType="long">

@@ -43,6 +43,8 @@
 	function searchBtn() {
 
 		var params = $("#searchForm").serialize();
+		
+		console.log(params);
 
 		$.ajax({
 			url : '/eGovBoard/employee/list', // 목적지
@@ -110,9 +112,7 @@
 								.attr('value', result.address);
 
 						$("#View_area").empty();
-						
-						
-						
+
 						if (result.picture.match(reg)) {
 							// 이미지 생성
 							var res = "";
@@ -120,13 +120,13 @@
 									+ result.picture
 									+ "' style = 'width: 130px; height:100%'/>";
 							$("#View_area").append(res);
-							
+
 							console.log(res);
 						} else {
 							var res = "";
-							res += "<img id='fileload' src = '/fileupload/noimage.jpg' style = 'width: 130px; height:100%'/>"; 
+							res += "<img id='fileload' src = '/fileupload/noimage.jpg' style = 'width: 130px; height:100%'/>";
 							$('#View_area').append(res);
-							
+
 							console.log(res);
 						}
 
@@ -271,11 +271,6 @@
 			return false;
 		}
 
-		/*   if(!picture){
-			  alert("사진을 입력해주세요");
-			  $("input[name=profile_pt]").focus();
-		  }
-		 */
 		return true;
 
 	}
@@ -507,7 +502,7 @@
 											<div class="input-group">
 												<span class="input-group-text" id="inputGroupSelect01">주소</span>
 												<input type="text" class="form-control" id="address"
-													name="address" readonly />
+													name="address"  placeholder='입력하세요'/>
 											</div>
 										</div>
 									</div>
