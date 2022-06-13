@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.enterprise.inject.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,11 @@ public class RestEmployeeController {
 			throws Exception {
 		System.out.println("employeeListController");
 		List<HashMap> list = employeeService.getEmployeeList(param);
+		
+		
+		
+		
+		
 
 		return list;
 	}
