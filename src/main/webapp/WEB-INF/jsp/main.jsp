@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <!-- beautify ignore:start -->
 <html lang="en" class="light-style layout-menu-fixed"
@@ -40,11 +41,11 @@
 
 
 <script type="text/javascript">
-	function searchBtn() {
+	function searchBtn(pagNum) {
 
 		var params = $("#searchForm").serialize();
-
-		console.log(params);
+		
+		params += "&num=" + pagNum;
 
 		$.ajax({
 			url : '/eGovBoard/employee/list', // 목적지
@@ -58,7 +59,7 @@
 				
 				console.log(result);
 
-				for (let i = 0; i < result.length; i++) {
+				for (let i = 0; i < result.length - 1; i++) {
 					res += "<tr class='List' onclick='listBtn("
 							+ result[i].employee_no + ")'>" + "<td>"
 							+ result[i].idx + "</td>" + "<td>"
@@ -69,18 +70,33 @@
 							+ result[i].phone_no + "</td>" + "<td>"
 							+ result[i].address + "</td>" + "</tr>";
 				}
+				
 				$("#userList").empty();
 				$("#userList").append(res);
 				
 				
+				var pagenum = result[result.length-1].pageNum;
+				var res = "";
+				
+				console.log(pagenum);
+				
+				for (let i = 1; i <= pagenum; i++){
+					res += "<li class='page-item'><div class='page-link' href='#' onclick='searchBtn(" + i +")'>"
+							+ i + "</div></li>";
+				}
+				
+				$("#Page").empty();
+				$("#Page").append(res);
 				
 			},
 			error : function(data) {
+				
+				console.log(data);
 				alert("실패입니다.");
 			}
 		});
 	}
-
+	
 	function listBtn(data) {
 
 		var reg = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
@@ -546,15 +562,10 @@
 											</div>
 										</div>
 
-										<input type="button" onclick="searchBtn()"
+										<input type="button" onclick="searchBtn(1)"
 											class="btn btn-primary mb-3" value="검색" />
 									</div>
 
-
-									<!-- <div style="display: flex; justify-content: flex-end;">
-										<input type="button" onclick="searchBtn()"
-											class="btn btn-primary me-2" value="검색" />
-									</div> -->
 								</form>
 
 
@@ -585,25 +596,20 @@
 										</tbody>
 									</table>
 
+
+
+									<nav aria-label="Page navigation" class="Page">
+										<ul class="pagination justify-content-center" id="Page">
+
+										</ul>
+									</nav>
+
 								</div>
 							</div>
 						</div>
 						<!--/  List Table -->
 
 
-						 <!-- Paging Center Alignment -->
-						<nav aria-label="Page navigation" class="Page">
-							<ul class="pagination justify-content-center">
-								<li class="page-item prev"><a class="page-link" href="#">이전</a></li>
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item "><a class="page-link" href="#">3</a>
-								</li>
-								<li class="page-item"><a class="page-link" href="#">4</a></li>
-								<li class="page-item"><a class="page-link" href="#">5</a></li>
-								<li class="page-item next"><a class="page-link" href="#">다음</a></li>
-							</ul>
-						</nav> 
 
 
 						<hr class="my-4" />
