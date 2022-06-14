@@ -11,7 +11,7 @@
 
     <!-- 게시물 목록 + 페이징 -->
 	<select id="getEmployeeList" resultType="map" parameterType="map">
-		SELECT idx,name,employee_no,work_dept,position,address,state,phone_no,sex,area,job,email, picture,home_no,office_no
+		SELECT ROW_NUMBER() OVER (ORDER BY employee_no DESC)idx ,name,employee_no,work_dept,position,address,state,phone_no,sex,area,job,email, picture,home_no,office_no
 		FROM employee
 		<trim prefix="WHERE" prefixOverrides="AND">
 			<if test="name != null and name != '' ">AND name like CONCAT('%',#{name}, '%')</if>
