@@ -48,37 +48,38 @@
 		params += "&num=" + pagNum;
 
 		$.ajax({
-			url : '/eGovBoard/employee/list', // 목적지
+			url : '/eGovBoard/employee/list2', // 목적지
 			dataType : 'json', // 전송 데이터 형식
 			data : params, //전송 데이터
 			contentType : "application/json; charset=UTF-8",
 			type : 'GET',
 			success : function(result) {
+				
+				console.log(result.data[0]);
+				
 
 				var res = "";
 				
-				console.log(result);
-
-				for (let i = 0; i < result.length - 1; i++) {
+				
+				
+				for (let i = 0; i < result.data.length; i++) {
 					res += "<tr class='List' onclick='listBtn("
-							+ result[i].employee_no + ")'>" + "<td>"
-							+ result[i].idx + "</td>" + "<td>"
-							+ result[i].work_dept + "</td>"
-							+ "<td><span>Htec-</span>" + result[i].employee_no
-							+ "</td>" + "<td>" + result[i].name + "</td>"
-							+ "<td>" + result[i].position + "</td>" + "<td>"
-							+ result[i].phone_no + "</td>" + "<td>"
-							+ result[i].address + "</td>" + "</tr>";
+							+ result.data[i].employee_no + ")'>" + "<td>"
+							+ result.data[i].idx + "</td>" + "<td>"
+							+ result.data[i].work_dept + "</td>"
+							+ "<td><span>Htec-</span>" + result.data[i].employee_no
+							+ "</td>" + "<td>" + result.data[i].name + "</td>"
+							+ "<td>" + result.data[i].position + "</td>" + "<td>"
+							+ result.data[i].phone_no + "</td>" + "<td>"
+							+ result.data[i].address + "</td>" + "</tr>";
 				}
 				
 				$("#userList").empty();
 				$("#userList").append(res);
 				
 				
-				var pagenum = result[result.length-1].pageNum;
+				var pagenum = result.pageNum;
 				var res = "";
-				
-				console.log(pagenum);
 				
 				for (let i = 1; i <= pagenum; i++){
 					res += "<li class='page-item'><div class='page-link' href='#' onclick='searchBtn(" + i +")'>"
@@ -91,7 +92,6 @@
 			},
 			error : function(data) {
 				
-				console.log(data);
 				alert("실패입니다.");
 			}
 		});
@@ -144,13 +144,12 @@
 									+ "' style = 'width: 130px; height:100%'/>";
 							$("#View_area").append(res);
 
-							console.log(res);
 						} else {
 							var res = "";
 							res += "<img id='fileload' src = '/fileupload/noimage.jpg' style = 'width: 130px; height:100%'/>";
 							$('#View_area').append(res);
 
-							console.log(res);
+
 						}
 
 					},
@@ -471,6 +470,10 @@
 
 .Page {
 	padding-top: 15px;
+}
+
+.pagination  {
+	margin : 0 !important;
 }
 </style>
 
