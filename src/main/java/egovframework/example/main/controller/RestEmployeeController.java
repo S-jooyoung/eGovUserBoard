@@ -149,6 +149,7 @@ public class RestEmployeeController {
 	public void registEmployee(@RequestParam(name = "profile_pt", required = false) MultipartFile file,
 			@RequestParam(required = false) HashMap<String, Object> param) throws Exception {
 		System.out.println("employeeRegistController");
+		System.out.println("File: " + file);
 		Object picture = null;
 
 		if (file != null) {

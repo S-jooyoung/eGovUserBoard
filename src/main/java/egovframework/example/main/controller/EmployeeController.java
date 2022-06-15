@@ -10,4 +10,9 @@ public class EmployeeController {
 	public String showIndexPage() {
 		return "/main";
 	}
+	
+	@RequestMapping("/translator.do")
+	public String showTranslatorPage() {
+		return "/translator";
+	}
 }

@@ -14,19 +14,16 @@
 				<div class="menu-inner-shadow"></div>
 
 				<ul class="menu-inner py-1">
-					<li class="menu-item"><a href="" class="menu-link">직원검색</a></li>
+					<li class="menu-item"><a href="/eGovBoard/main.do" class="menu-link">직원검색</a></li>
+					<li class="menu-item"><a href="/eGovBoard/translator.do" class="menu-link">번역기</a></li>
 				</ul>
 			</aside>
 			<!-- / Menu -->
 
 			<!-- Layout container -->
 			<div class="layout-page">
-
-
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
-					<!-- Content -->
-
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<h4 class="fw-bold">
 							<span class="text-muted fw-light">HRM- /</span> 직원검색
@@ -249,8 +246,10 @@
 						</div>
 						<!--/  Info Table -->
 					</div>
-					
-				</div>		
+				</div>
+				<!--/ Content wrapper -->
+			</div>
+			<!--/ Layout container -->			
 
 	<jsp:include page="/component/footer.jsp" />
 </body>
