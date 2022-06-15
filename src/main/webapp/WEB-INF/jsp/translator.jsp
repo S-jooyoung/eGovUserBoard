@@ -50,16 +50,16 @@
 								<h5 class="mb-0">한국어</h5>
 							</div>
 							<div class="card-body">
-								<form class="h-100">
+								<form class="h-100" id="translatorForm">
 									<div class="mb-3 h-75">
 										<textarea id="basic-default-message"
 											class="form-control h-100"
-											placeholder="Hi, Do you have a moment to talk Joe?"></textarea>
+											placeholder="Hi, Do you have a moment to talk Joe?"
+											id="startText" name="startText"></textarea>
 									</div>
 									<div class="translator_btn">
-										<button type="submit" class="btn btn-primary">번역하기</button>
+										<button class="btn btn-danger" onclick="translatorBtn()">번역하기</button>
 									</div>
-									
 								</form>
 							</div>
 						</div>

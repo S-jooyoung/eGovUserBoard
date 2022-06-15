@@ -17,6 +17,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public List<HashMap> getEmployeeList(HashMap<String, Object> map) {
 		System.out.println("employeeListMapper");
+		
 		// TODO Auto-generated method stub
 		return query.selectList("getEmployeeList", map);
 	}

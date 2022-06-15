@@ -1,6 +1,6 @@
-function searchBtn(pagNum) {
+	function searchBtn(pagNum) {
 
-		var params = $("#searchForm").serialize();
+		let params = $("#searchForm").serialize();
 		
 		params += "&num=" + pagNum;
 
@@ -15,7 +15,7 @@ function searchBtn(pagNum) {
 				console.log(result.data[0]);
 				
 
-				var res = "";
+				let res = "";
 				
 				for (let i = 0; i < result.data.length; i++) {
 					res += "<tr class='List' onclick='listBtn("
@@ -33,16 +33,16 @@ function searchBtn(pagNum) {
 				$("#userList").append(res);
 				
 				
-				var pagenum = result.pageNum;
-				var res = "";
+				let pagenum = result.pageNum;
+				let res2 = "";
 				
 				for (let i = 1; i <= pagenum; i++){
-					res += "<li class='page-item'><div class='page-link' href='#' onclick='searchBtn(" + i +")'>"
+					res2 += "<li class='page-item'><div class='page-link' href='#' onclick='searchBtn(" + i +")'>"
 							+ i + "</div></li>";
 				}
 				
 				$("#Page").empty();
-				$("#Page").append(res);
+				$("#Page").append(res2);
 				
 			},
 			error : function(data) {
@@ -52,9 +52,28 @@ function searchBtn(pagNum) {
 		});
 	}
 	
+	function translatorBtn(){
+		
+		let params = $("#translatorForm").serialize();
+		
+		$.ajax({
+			url : '/eGovBoard/papago', // 목적지
+			dataType : 'json', // 전송 데이터 형식
+			data : params, //전송 데이터
+			contentType : "application/json; charset=UTF-8",
+			type : 'GET',
+			success : function(result) {
+				alert("번역 성공입니다..");
+			},
+			error : function(data) {
+				alert("번역 실패입니다..");
+			}
+		});
+	}
+	
 	function listBtn(data) {
 
-		var reg = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+		let reg = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
 
 		$
 				.ajax({
@@ -93,14 +112,14 @@ function searchBtn(pagNum) {
 
 						if (result.picture.match(reg)) {
 							// 이미지 생성
-							var res = "";
+							let res = "";
 							res += "<img id='fileload' src = '/fileupload/"
 									+ result.picture
 									+ "' style = 'width: 130px; height:100%'/>";
 							$("#View_area").append(res);
 
 						} else {
-							var res = "";
+							let res = "";
 							res += "<img id='fileload' src = '/fileupload/noimage.jpg' style = 'width: 130px; height:100%'/>";
 							$('#View_area').append(res);
 
@@ -117,8 +136,8 @@ function searchBtn(pagNum) {
 	function createInfo() {
 
 		if (correctInfo()) {
-			var form = $("#InfoForm")[0];
-			var params2 = new FormData(form);
+			let form = $("#InfoForm")[0];
+			let params2 = new FormData(form);
 
 			/* var params2 = $("#InfoForm").serialize(); */
 
@@ -145,10 +164,10 @@ function searchBtn(pagNum) {
 	function modifyInfo() {
 
 		if (correctInfo()) {
-			var empNo2 = $("input[name=employeeNo_r]").val();
+			let empNo2 = $("input[name=employeeNo_r]").val();
 
-			var form = $("#InfoForm")[0];
-			var params2 = new FormData(form);
+			let form = $("#InfoForm")[0];
+			let params2 = new FormData(form);
 
 			console.log(form);
 
@@ -175,7 +194,7 @@ function searchBtn(pagNum) {
 
 	function deleteInfo() {
 
-		var priKey = $("input[name=employeeNo_r]").val();
+		let priKey = $("input[name=employeeNo_r]").val();
 
 		if (confirm("정말로 삭제 하시겠습니까?")) {
 
@@ -196,6 +215,8 @@ function searchBtn(pagNum) {
 		}
 
 	}
+	
+	
 
 	function resetBtn() {
 		$("#InfoForm")[0].reset();
@@ -268,6 +289,8 @@ function searchBtn(pagNum) {
 		return true;
 
 	}
+	
+	
 
 	function execPostCode() {
 
@@ -277,8 +300,8 @@ function searchBtn(pagNum) {
 
 				// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
 				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-				var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-				var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+				let fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+				let extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
 				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
 				// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
@@ -309,29 +332,29 @@ function searchBtn(pagNum) {
 
 		$("#fileload").remove();
 
-		var preview = document.getElementById(View_area); //div id
-		var ua = window.navigator.userAgent;
+		let preview = document.getElementById(View_area); //div id
+		let ua = window.navigator.userAgent;
 
 		//ie일때(IE8 이하에서만 작동)
 		if (ua.indexOf("MSIE") > -1) {
 			targetObj.select();
 			try {
-				var src = document.selection.createRange().text; // get file full path(IE9, IE10에서 사용 불가)
-				var ie_preview_error = document
+				let src = document.selection.createRange().text; // get file full path(IE9, IE10에서 사용 불가)
+				let ie_preview_error = document
 						.getElementById("ie_preview_error_" + View_area);
 
 				if (ie_preview_error) {
 					preview.removeChild(ie_preview_error); //error가 있으면 delete
 				}
 
-				var img = document.getElementById(View_area); //이미지가 뿌려질 곳
+				let img = document.getElementById(View_area); //이미지가 뿌려질 곳
 
 				//이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할
 				img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
 						+ src + "', sizingMethod='scale')";
 			} catch (e) {
 				if (!document.getElementById("ie_preview_error_" + View_area)) {
-					var info = document.createElement("<p>");
+					let info = document.createElement("<p>");
 					info.id = "ie_preview_error_" + View_area;
 					info.innerHTML = e.name;
 					preview.insertBefore(info, null);
@@ -339,17 +362,17 @@ function searchBtn(pagNum) {
 			}
 			//ie가 아닐때(크롬, 사파리, FF)
 		} else {
-			var files = targetObj.files;
-			for (var i = 0; i < files.length; i++) {
-				var file = files[i];
-				var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+			let files = targetObj.files;
+			for (let i = 0; i < files.length; i++) {
+				let file = files[i];
+				let imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
 				if (!file.type.match(imageType))
 					continue;
-				var prevImg = document.getElementById("prev_" + View_area); //이전에 미리보기가 있다면 삭제
+				let prevImg = document.getElementById("prev_" + View_area); //이전에 미리보기가 있다면 삭제
 				if (prevImg) {
 					preview.removeChild(prevImg);
 				}
-				var img = document.createElement("img");
+				let img = document.createElement("img");
 				img.id = "prev_" + View_area;
 				img.name = "file";
 				img.classList.add("obj");
@@ -358,7 +381,7 @@ function searchBtn(pagNum) {
 				img.style.height = '100%';
 				preview.appendChild(img);
 				if (window.FileReader) { // FireFox, Chrome, Opera 확인.
-					var reader = new FileReader();
+					let reader = new FileReader();
 					reader.onloadend = (function(aImg) {
 						return function(e) {
 							aImg.src = e.target.result;
@@ -369,7 +392,7 @@ function searchBtn(pagNum) {
 					//alert('not supported FileReader');
 					if (!document.getElementById("sfr_preview_error_"
 							+ View_area)) {
-						var info = document.createElement("p");
+						let info = document.createElement("p");
 						info.id = "sfr_preview_error_" + View_area;
 						info.innerHTML = "not supported FileReader";
 						preview.insertBefore(info, null);
