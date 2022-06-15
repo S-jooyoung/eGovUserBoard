@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import egovframework.example.main.service.EmployeeService;
 import egovframework.example.main.service.FileService;
+import egovframework.example.main.service.TransService;
 
 @RestController
 public class RestEmployeeController {
@@ -24,7 +26,21 @@ public class RestEmployeeController {
 
 	@Resource(name = "fileService")
 	private FileService fileService;
+	
+	@Resource(name = "transservice")
+	private TransService transservice;
 
+	
+	@GetMapping("/translator/english")
+	public String English(@RequestParam(value = "korean", defaultValue = "-")String korean, Model model) {
+		
+		return korean;
+		
+	}
+	
+	
+	
+	
 	// 전체적으로 예제 따라서 그냥 한거임
 	// @GetMapping("/employee/list/{num}") 이렇게 써도 됨 이렇게 할거면 바로 아래에 getEmployeeDetail
 	// List<HashMap> 방식
@@ -83,7 +99,7 @@ public class RestEmployeeController {
 
 		// 게시물 총 개수
 		int count = employeeService.getEmployeeCount();
-		System.out.println("count : " + count);
+		
 
 		// 한 페이지에 출력할 게시물의 개수
 		int postNum = 5;
@@ -112,9 +128,6 @@ public class RestEmployeeController {
 		
 		map1.put("pageNum", pageNum);
 		
-		
-		System.out.println("pageNum : " + pageNum);
-		System.out.println("list : " + list);
 		// 위에서 말했던거 처럼 pageNum 포함시켜서 보내야됨
 		// Postman같은 api테스트 하는걸로 데이터 어떻게 오는지 보고 판단해서 넣는게 좋음.
 		
@@ -131,8 +144,7 @@ public class RestEmployeeController {
 	public HashMap<String, Object> getEmployeeDetail(@PathVariable Long empNo) {
 		System.out.println("employeeDetailController");
 		HashMap<String, Object> detail = employeeService.getEmployeeDetail(empNo);
-		
-		System.out.println("detail : " + detail);
+	
 
 		return detail;
 	}

@@ -7,6 +7,10 @@
 	display: flex;
 	justify-content: flex-end;
 }
+
+.card-header{
+	padding: 1rem 2rem;
+}
 </style>
 <body>
 
@@ -53,7 +57,7 @@
 											placeholder="Hi, Do you have a moment to talk Joe?"></textarea>
 									</div>
 									<div class="translator_btn">
-										<button type="submit" class="btn btn-primary">보내기</button>
+										<button type="submit" class="btn btn-primary">번역하기</button>
 									</div>
 									
 								</form>
