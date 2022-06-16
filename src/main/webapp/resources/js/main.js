@@ -12,21 +12,18 @@
 			type : 'GET',
 			success : function(result) {
 				
-				console.log(result.data[0]);
-				
-
 				let res = "";
 				
-				for (let i = 0; i < result.data.length; i++) {
+				for (const element of result.data) {
 					res += "<tr class='List' onclick='listBtn("
-							+ result.data[i].employee_no + ")'>" + "<td>"
-							+ result.data[i].idx + "</td>" + "<td>"
-							+ result.data[i].work_dept + "</td>"
-							+ "<td><span>Htec-</span>" + result.data[i].employee_no
-							+ "</td>" + "<td>" + result.data[i].name + "</td>"
-							+ "<td>" + result.data[i].position + "</td>" + "<td>"
-							+ result.data[i].phone_no + "</td>" + "<td>"
-							+ result.data[i].address + "</td>" + "</tr>";
+							+ element.employee_no + ")'>" + "<td>"
+							+ element.idx + "</td>" + "<td>"
+							+ element.work_dept + "</td>"
+							+ "<td><span>Htec-</span>" + element.employee_no
+							+ "</td>" + "<td>" + element.name + "</td>"
+							+ "<td>" + element.position + "</td>" + "<td>"
+							+ element.phone_no + "</td>" + "<td>"
+							+ element.address + "</td>" + "</tr>";
 				}
 				
 				$("#userList").empty();
@@ -45,8 +42,7 @@
 				$("#Page").append(res2);
 				
 			},
-			error : function(data) {
-				
+			error : function() {
 				alert("실패입니다.");
 			}
 		});
@@ -60,12 +56,15 @@
 			url : '/eGovBoard/papago', // 목적지
 			dataType : 'json', // 전송 데이터 형식
 			data : params, //전송 데이터
-			contentType : "application/json; charset=UTF-8",
 			type : 'GET',
-			success : function(result) {
-				alert("번역 성공입니다..");
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
+			success : function(data) {
+			    let jsonData = JSON.parse(data);
+                
+				$('textarea[name=endText]').attr('placeholder',jsonData.message.result.translatedText);
+				
 			},
-			error : function(data) {
+			error : function() {
 				alert("번역 실패입니다..");
 			}
 		});
@@ -82,7 +81,7 @@
 					contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
 					type : 'GET',
 					success : function(result) {
-
+						
 						inputReset();
 
 						// 유저 정보 넣어주기
@@ -123,7 +122,6 @@
 							res += "<img id='fileload' src = '/fileupload/noimage.jpg' style = 'width: 130px; height:100%'/>";
 							$('#View_area').append(res);
 
-
 						}
 
 					},
@@ -139,8 +137,6 @@
 			let form = $("#InfoForm")[0];
 			let params2 = new FormData(form);
 
-			/* var params2 = $("#InfoForm").serialize(); */
-
 			$.ajax({
 				url : '/eGovBoard/employee/regist', // 목적지
 				enctype : 'multipart/form-data',
@@ -149,11 +145,11 @@
 				cache : false,
 				processData : false,
 				contentType : false,
-				success : function(result) {
+				success : function() {
 					alert("유저정보 생성 성공입니다.");
 					resetBtn();
 				},
-				error : function(data) {
+				error : function() {
 					alert("유저정보 생성 실패입니다.");
 				}
 			});
@@ -179,12 +175,12 @@
 				cache : false,
 				processData : false,
 				contentType : false,
-				success : function(result) {
+				success : function() {
 					alert("유저정보  수정 성공입니다.");
 					resetBtn();
 
 				},
-				error : function(data) {
+				error : function() {
 					alert("유저정보 수정 실패입니다.");
 				}
 			});
@@ -203,11 +199,11 @@
 						url : '/eGovBoard/employee/delete/' + priKey, // 목적지
 						type : 'GET',
 						contentType : "application/x-www-form-urlencoded; charset=UTF-8;",
-						success : function(result) {
+						success : function() {
 							alert("유저정보 삭제 성공입니다.");
 							resetBtn();
 						},
-						error : function(data) {
+						error : function() {
 							alert("유저정보 삭제 실패입니다.");
 						}
 					});

@@ -1,6 +1,6 @@
 package egovframework.example.main.service;
 
-import java.io.IOException;
+
 import java.util.HashMap;
 
 import org.springframework.web.multipart.MultipartFile;

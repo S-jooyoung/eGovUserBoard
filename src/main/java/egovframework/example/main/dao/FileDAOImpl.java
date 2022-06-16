@@ -14,7 +14,7 @@ public class FileDAOImpl implements FileDAO {
 
 	@Override
 	public void registFile(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
+		
 		query.insert("registFile", map);
 	}
 

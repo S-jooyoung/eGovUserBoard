@@ -3,13 +3,14 @@ package egovframework.example.main.service;
 import java.util.HashMap;
 import java.util.List;
 
+
 public interface EmployeeService {
 
-	List<HashMap> getEmployeeList(HashMap<String, Object> map);
+	List<HashMap<String, Object>> getEmployeeList(HashMap<String, Object> map);
 	
 	int getEmployeeCount();
 
-	void registEmployee(HashMap<String, Object> map) throws Exception;
+	void registEmployee(HashMap<String, Object> param) throws Exception;
 
 	void modifyEmployee(HashMap<String, Object> map) throws Exception;
 

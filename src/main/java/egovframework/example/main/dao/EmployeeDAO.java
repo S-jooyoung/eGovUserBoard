@@ -2,7 +2,7 @@ package egovframework.example.main.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 
@@ -10,7 +10,7 @@ import egovframework.rte.psl.dataaccess.mapper.Mapper;
 public interface EmployeeDAO {
 
 	// 유저 목록
-	List<HashMap> getEmployeeList(HashMap<String, Object> map);
+	List<HashMap<String, Object>> getEmployeeList(HashMap<String, Object> map);
 	
 	int getEmployeeCount();
 

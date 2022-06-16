@@ -31,7 +31,6 @@ public class RestEmployeeController {
 
 	@GetMapping("/papago")
 	public String getTranslation(@RequestParam(required = false) HashMap<String, Object> param) {
-		System.out.println("translationController" + param);
 
 		return papagoService.getPaPagoResult(param);
 	}
@@ -39,13 +38,11 @@ public class RestEmployeeController {
 	// @GetMapping("/employee/list/{num}") 이렇게 써도 됨 이렇게 할거면 바로 아래에 getEmployeeDetail
 	// List<HashMap> 방식
 	@GetMapping("/employee/list")
-	public List<HashMap> getEmployeeList(@RequestParam(required = false) HashMap<String, Object> param)
+	public List<HashMap<String, Object>> getEmployeeList(@RequestParam(required = false) HashMap<String, Object> param)
 			throws Exception {
-		System.out.println("employeeListController");
 
 		// 게시물 총 개수
 		int count = employeeService.getEmployeeCount();
-		System.out.println("count : " + count);
 
 		// 한 페이지에 출력할 게시물의 개수
 		int postNum = 5;
@@ -68,16 +65,14 @@ public class RestEmployeeController {
 		// 이건 return에 포함시켜서 보내야함 (프론트에서 쓰임)
 		int pageNum = (int) Math.ceil((double) count / postNum);
 
-		List<HashMap> list = employeeService.getEmployeeList(param);
+		List<HashMap<String, Object>> list = employeeService.getEmployeeList(param);
 
-		HashMap<String, Integer> map1 = new HashMap<>();
+		HashMap<String, Object> map1 = new HashMap<>();
 
 		map1.put("pageNum", pageNum);
 		list.add(map1);
 		// 데이터를 맵에 저장
 
-		System.out.println("pageNum : " + pageNum);
-		System.out.println("list : " + list);
 		// 위에서 말했던거 처럼 pageNum 포함시켜서 보내야됨
 		// Postman같은 api테스트 하는걸로 데이터 어떻게 오는지 보고 판단해서 넣는게 좋음.
 
@@ -86,8 +81,8 @@ public class RestEmployeeController {
 
 	// Map 방식
 	@GetMapping("/employee/list2")
-	public Map getEmployeeList2(@RequestParam(required = false) HashMap<String, Object> param) throws Exception {
-		System.out.println("employeeListController");
+	public Map<Object, Object> getEmployeeList2(@RequestParam(required = false) HashMap<String, Object> param)
+			throws Exception {
 
 		// 게시물 총 개수
 		int count = employeeService.getEmployeeCount();
@@ -113,16 +108,12 @@ public class RestEmployeeController {
 		// 이건 return에 포함시켜서 보내야함 (프론트에서 쓰임)
 		int pageNum = (int) Math.ceil((double) count / postNum);
 
-		List<HashMap> list = employeeService.getEmployeeList(param);
-
-		HashMap<String, Integer> map1 = new HashMap<>();
-
-		map1.put("pageNum", pageNum);
+		List<HashMap<String, Object>> list = employeeService.getEmployeeList(param);
 
 		// 위에서 말했던거 처럼 pageNum 포함시켜서 보내야됨
 		// Postman같은 api테스트 하는걸로 데이터 어떻게 오는지 보고 판단해서 넣는게 좋음.
 
-		Map result = new HashMap<>();
+		Map<Object, Object> result = new HashMap<>();
 
 		result.put("data", list);
 		result.put("pageNum", pageNum);
@@ -132,29 +123,23 @@ public class RestEmployeeController {
 
 	@GetMapping("/employee/detail/{empNo}")
 	public HashMap<String, Object> getEmployeeDetail(@PathVariable Long empNo) {
-		System.out.println("employeeDetailController");
-		HashMap<String, Object> detail = employeeService.getEmployeeDetail(empNo);
 
-		return detail;
+		return employeeService.getEmployeeDetail(empNo);
 	}
 
 	@GetMapping("/employee/delete/{empNo}")
 	public int deleteEmployee(@PathVariable Long empNo) {
-		System.out.println("employeeDeleteController");
-		int delete = employeeService.deleteEmployee(empNo);
 
-		return delete;
+		return employeeService.deleteEmployee(empNo);
 	}
 
 	@PostMapping("/employee/regist")
 	public void registEmployee(@RequestParam(name = "profile_pt", required = false) MultipartFile file,
 			@RequestParam(required = false) HashMap<String, Object> param) throws Exception {
-		System.out.println("employeeRegistController");
-		System.out.println("File: " + file);
+
 		Object picture = null;
 
 		if (file != null) {
-			System.out.println("fileRegistController");
 			picture = fileService.registFile(fileService.uploadForm(file));
 			param.put("picture_r", picture);
 		}
@@ -165,11 +150,10 @@ public class RestEmployeeController {
 	@PostMapping("/employee/modify/{empNo}")
 	public void modifyEmployee(@RequestParam(name = "profile_pt", required = false) MultipartFile file,
 			@RequestParam(required = false) HashMap<String, Object> param) throws Exception {
-		System.out.println("employeeModifyController");
+
 		Object picture = null;
 
 		if (file != null) {
-			System.out.println("fileModifyController");
 			picture = fileService.registFile(fileService.uploadForm(file));
 			param.put("picture_r", picture);
 		}

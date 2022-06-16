@@ -18,55 +18,47 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeDAO employeeDAO;
 
 	@Override
-	public List<HashMap> getEmployeeList(HashMap<String, Object> map) {
-		System.out.println("employeeListService");
-		// TODO Auto-generated method stub
+	public List<HashMap<String, Object>> getEmployeeList(HashMap<String, Object> map) {
+
 		return employeeDAO.getEmployeeList(map);
 	}
 
 	@Override
 	public int getEmployeeCount() {
-		System.out.println("employeeCountService");
-		// TODO Auto-generated method stub
+
 		return employeeDAO.getEmployeeCount();
 	}
 
 	@Override
 	public void registEmployee(HashMap<String, Object> map) throws Exception {
-		System.out.println("employeeRegistService");
-		// TODO Auto-generated method stub
 
 		for (Map.Entry<String, Object> p : map.entrySet()) {
 			map.replace(p.getKey(), transSetEncoder(toString(p.getValue())));
 		}
+		
+		
 
 		employeeDAO.registEmployee(map);
 	}
 
 	@Override
 	public void modifyEmployee(HashMap<String, Object> map) throws Exception {
-		System.out.println("employeeModifyService");
 
 		for (Map.Entry<String, Object> p : map.entrySet()) {
 			map.replace(p.getKey(), transSetEncoder(toString(p.getValue())));
 		}
 
-		// TODO Auto-generated method stub
 		employeeDAO.modifyEmployee(map);
 	}
 
 	@Override
 	public HashMap<String, Object> getEmployeeDetail(Long empNo) {
-		System.out.println("employeeDetailService");
-		// TODO Auto-generated method stub
 		return employeeDAO.getEmployeeDetail(empNo);
 	}
 
 	@Override
 	public int deleteEmployee(Long empNo) {
 
-		System.out.println("employeeDeleteService");
-		// TODO Auto-generated method stub
 		return employeeDAO.deleteEmployee(empNo);
 	}
 

@@ -2,14 +2,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+
 <style>
-.translator_btn{
+.translator_btn {
 	display: flex;
 	justify-content: flex-end;
 }
 
-.card-header{
+.card-header {
 	padding: 1rem 2rem;
+}
+
+.translatorBtn{
+	height: 3rem;
+	margin-top: 1rem;
 }
 </style>
 <body>
@@ -50,17 +56,16 @@
 								<h5 class="mb-0">한국어</h5>
 							</div>
 							<div class="card-body">
-								<form class="h-100" id="translatorForm">
-									<div class="mb-3 h-75">
+								<form class="h-75" id="translatorForm">
+									<div class="mb-3 h-100">
 										<textarea id="basic-default-message"
 											class="form-control h-100"
-											placeholder="Hi, Do you have a moment to talk Joe?"
 											id="startText" name="startText"></textarea>
 									</div>
-									<div class="translator_btn">
-										<button class="btn btn-danger" onclick="translatorBtn()">번역하기</button>
-									</div>
 								</form>
+								<div class="translator_btn h-25">
+									<button class="btn btn-danger translatorBtn" onclick="translatorBtn()">번역하기</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -72,11 +77,11 @@
 							</div>
 							<div class="card-body">
 								<div class="mb-3  h-75">
-									<textarea id="basic-icon-default-message"
+									
+									<textarea id="basic-icon-default-message endText"
 										class="form-control h-100"
-										placeholder="Hi, Do you have a moment to talk Joe?"
-										aria-label="Hi, Do you have a moment to talk Joe?"
-										aria-describedby="basic-icon-default-message2"></textarea>
+										name="endText"
+										readonly></textarea>
 								</div>
 							</div>
 
